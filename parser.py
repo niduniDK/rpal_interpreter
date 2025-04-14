@@ -343,5 +343,5 @@ def build_ast(reduced_grammar):
     return ast
 
 
-input_str = "let <IDENTIFIER>"
+input_str = "let <IDENTIFIER> eq <INTEGER> in <IDENTIFIER> + <INTEGER> - <STRING> where <IDENTIFIER> = <INTEGER>"
 parser(input_str)
