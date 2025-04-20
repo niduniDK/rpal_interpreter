@@ -318,6 +318,7 @@ Ew -> T 'where' Dr => 'where'
 '''
 
 def E():
+    print(tokens[0])
     if tokens[0] == 'let':
         tokens.pop(0)
         D()
@@ -348,6 +349,7 @@ def E():
 '''
 
 def Ew():
+    print(tokens[0])
     T()
     if tokens[0] == 'where':
         tokens.pop(0)
@@ -359,6 +361,7 @@ def Ew():
 			-> Ta ;
 '''
 def T():
+    print(tokens[0])
     Ta()
     while tokens[0] == ',':
         tokens.pop(0)
@@ -371,6 +374,7 @@ def T():
 				-> Tc ;
 '''
 def Ta():
+    print(tokens[0])
     Tc()
     while tokens[0] == 'aug':
         tokens.pop(0)
@@ -383,6 +387,7 @@ def Ta():
 			-> B ;
 '''
 def Tc():
+    print(tokens[0])
     B()
     if tokens[0] == '->':
         tokens.pop(0)
@@ -400,6 +405,7 @@ def Tc():
 			-> Bt ;
 '''
 def B():
+    print(tokens[0])
     Bt()
     while tokens[0] == 'or':
         tokens.pop(0)
@@ -412,6 +418,7 @@ def B():
 			-> Bs ;
 '''
 def Bt():
+    print(tokens[0])
     Bs()
     while tokens[0] == '&':
         tokens.pop(0)
@@ -424,6 +431,7 @@ def Bt():
 			-> Bp ;
 '''
 def Bs():
+    print(tokens[0])
     if tokens[0] == 'not':
         tokens.pop(0)
         Bp()
@@ -441,6 +449,7 @@ def Bs():
 			-> A ;
 '''
 def Bp():
+    print(tokens[0])
     A()
     if tokens[0] == 'gr' or tokens[0] == '>':
         tokens.pop(0)
@@ -475,6 +484,7 @@ def Bp():
 			-> At ;
 '''
 def A():
+    print(tokens[0])
     if tokens[0] == '+':
         tokens.pop(0)
         At()
@@ -501,6 +511,7 @@ def A():
 				-> Af ;
 '''
 def At():
+    print(tokens[0])
     Af()
     while tokens[0] == '*' or tokens[0] == '/':
         if tokens[0] == '*':
@@ -519,6 +530,7 @@ def At():
 				-> Ap ;
 '''
 def Af():
+    print(tokens[0])
     Ap()
     while tokens[0] == '**':
         tokens.pop(0)
@@ -531,6 +543,7 @@ def Af():
 				-> R ;
 '''
 def Ap():
+    print(tokens[0])
     R()
     while tokens[0] == '@':
         tokens.pop(0)
@@ -549,6 +562,7 @@ def Ap():
 				-> Rn ;
 '''
 def R():
+    print(tokens[0])
     if tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == ')' or tokens[0] == '(':
         Rn()
         while tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == ')' or tokens[0] == '(':
@@ -569,6 +583,7 @@ def R():
 				-> 'dummy' => 'dummy' ;
 '''
 def Rn():
+    print(tokens[0])
     if tokens[0] == '<IDENTIFIER>':
         tokens.pop(0)
     elif tokens[0] == '<INTEGER>':
@@ -604,6 +619,7 @@ def Rn():
 				-> Da ;
 '''
 def D():
+    print(tokens[0])
     Da()
     if tokens[0] == 'within':
         tokens.pop(0)
@@ -615,6 +631,7 @@ def D():
 					-> Dr ;
 '''
 def Da():
+    print(tokens[0])
     Dr()
     while tokens[0] == 'and':
         tokens.pop(0)
@@ -626,6 +643,7 @@ def Da():
 					-> Db ;
 '''
 def Dr():
+    print(tokens[0])
     if tokens[0] == 'rec':
         tokens.pop(0)
         Db()
@@ -639,6 +657,7 @@ def Dr():
 				-> '(' D ')' ; 
 '''
 def Db():
+    print(tokens[0])
     if tokens[0] == '<IDENTIFIER>':
         tokens.pop(0)
         Vb()
@@ -672,6 +691,7 @@ def Db():
 			-> '(' ')' => '()';
 '''
 def Vb():
+    print(tokens[0])
     if tokens[0] == '<IDENTIFIER>':
         tokens.pop(0)
     elif tokens[0] == '(':
@@ -697,6 +717,7 @@ def Vb():
 '''Vl -> '<IDENTIFIER>' list ',' => ','?
 '''
 def Vl():
+    print(tokens[0])
     if tokens[0] == '<IDENTIFIER>':
         tokens.pop(0)
         while tokens[0] == ',':
@@ -723,6 +744,6 @@ def build_ast(reduced_grammar):
     return ast
 
 
-input_str = "let <IDENTIFIER> eq <INTEGER> in <IDENTIFIER> + <INTEGER> - <STRING> where <IDENTIFIER> = <INTEGER>"
-tokens = input_str.split()
+input_str = "let <IDENTIFIER> = <INTEGER> in <INTEGER> + <INTEGER> - <STRING> where <IDENTIFIER> = <INTEGER>"
+tokens = input_str.split(" ")
 parser()
