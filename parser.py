@@ -262,14 +262,11 @@ def Ap():
 '''
 def R():
     print(tokens[0])
-    if tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == '(':
+    Rn()
+    while len(tokens) > 0 and (tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == '('):
         Rn()
-        while len(tokens) > 0 and (tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == '('):
-            Rn()
-            ast_nodes.append('gamma')
-    else:
-        raise SyntaxError("Error: Expected a valid token")
-        return
+        ast_nodes.append('gamma')
+    
 
 
 '''Rn 	-> '<IDENTIFIER>'
