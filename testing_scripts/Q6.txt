@@ -1,0 +1,5 @@
+let rec print_pal (B, E) = B <= E -> (print_pal(B+1, E), check_pal(B)) | ''
+where rec check_pal (B) = B eq reverse(B,0) -> (print(B), print(' ')) | print('')
+where rec reverse(B,x) = B le 0 -> x | reverse(B/10, x*10+(B-(B/10)*10))
+in print_pal(10,200)
+// prints 11 22 33 44 55 66 77 88 99 101 111 121 131 141 151 161 171 181 191

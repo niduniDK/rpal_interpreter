@@ -1,0 +1,3 @@
+let get_largest (X, Y, Z) = X >= Y -> Y >= Z -> X | Z >= Y -> Z | Y | Y
+in print(get_largest(10, 15, 13)) 
+// prints 15

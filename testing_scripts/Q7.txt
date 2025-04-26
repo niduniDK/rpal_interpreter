@@ -1,0 +1,2 @@
+let odd_even N = N eq 0 -> 'Even' | N ls 0 -> (N/2) eq (N+1)/2 -> 'Odd' | 'Even' | (N/2) eq (N-1)/2 -> 'Odd' | 'Even'
+in print(odd_even(11))

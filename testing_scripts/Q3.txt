@@ -1,0 +1,13 @@
+let
+    rec fib_lim(D, F, S) = S > D -> S | fib_lim(D, S, S+F)
+in let
+    rec fib_up(D, F, S) = S > D -> F | fib_up(D, S, S+F)
+in let get_fib(B, D) = 
+        fib(D, fib_up(B, 0, 1), fib_lim(B, 0, 1))
+where
+    rec fib(D, F, S) = S > D -> F | fib_func(D, F, S)
+where
+    fib_func(D, F, S) = (fib(D, S, F+S), print(S), print(' '))
+in 
+    get_fib(0, 25)
+// prints the fibonacci series for numbers greater than 0 less than 25

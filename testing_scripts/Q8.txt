@@ -1,0 +1,2 @@
+let first_sum N = N*(N+1)/2
+in print(first_sum(8))
