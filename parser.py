@@ -434,6 +434,7 @@ def Vl():
 
 def parser():
     E()
+    ast_nodes.reverse()
     return ast_nodes
 
 
