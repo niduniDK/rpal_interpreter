@@ -1,3 +1,5 @@
+from AST import AST
+
 tokens = []
 ast_nodes = []
 
@@ -438,9 +440,11 @@ def parser():
     return ast_nodes
 
 
-def build_ast(reduced_grammar):
-    ast = []
-    # to be implemented
+def print_ast():
+    ast_node_values = ast_nodes
+    ast = AST(ast_node_values)
+    ast.build_AST()
+    ast.pre_order_traverse(ast.root)
     return ast
 
 # <IDENTIFIER:let>
@@ -459,3 +463,4 @@ def build_ast(reduced_grammar):
 input_str = "let <IDENTIFIER> = <INTEGER> + <INTEGER> in <IDENTIFIER> ( <STRING> )"
 tokens = input_str.split(" ")
 print(parser())
+print_ast()
