@@ -1,310 +1,3 @@
-# parse table for rpal grammar
-# parse_table = {
-#     'E': {
-#           'let':['let D in E', 'let'],
-#           'fn':['fn Vb+ in E', 'lambda'],
-#           'not': ['Ew', ''],
-#           '+': ['Ew', ''],
-#           '-': ['Ew', ''],
-#           '<IDENTIFIER>': ['Ew', ''],
-#           '<INTEGER>': ['Ew', ''],
-#           '<STRING>': ['Ew', ''],
-#           'true': ['Ew', ''],
-#           'false': ['Ew', ''],
-#           'nil': ['Ew', ''],
-#           '(': ['Ew', ''],
-#           'dummy': ['Ew', '']
-#         },
-#     'Ew': {
-#         'not': ['TX', ''],
-#         '+': ['TX', ''],
-#         '-': ['TX', ''],
-#         '<IDENTIFIER>': ['TX', ''],
-#         '<INTEGER>': ['TX', ''],
-#         '<STRING>': ['TX', ''],
-#         'true': ['TX', ''],
-#         'false': ['TX', ''],
-#         'nil': ['TX', ''],
-#         '(': ['TX', ''],
-#         'dummy': ['TX', '']
-#     },
-#     'X': {
-#         'where': ['where Dr', 'where'],
-#         ')': ['', '']
-#     },
-#     'T': {
-#         'not': ['Ta Y', ''],
-#         '+': ['Ta Y', ''],
-#         '-': ['Ta Y', ''],
-#         '<IDENTIFIER>': ['Ta Y', ''],
-#         '<INTEGER>': ['Ta Y', ''],
-#         '<STRING>': ['Ta Y', ''],
-#         'true': ['Ta Y', ''],
-#         'false': ['Ta Y', ''],
-#         'nil': ['Ta Y', ''],
-#         '(': ['Ta Y', ''],
-#         'dummy': ['Ta Y', '']
-#     },
-#     'Y': {
-#         ',': ['(, Ta)+', 'tau'],
-#         'where': ['', '']
-#     },
-#     'Ta': {
-#         'not': ['Tc Z', ''],
-#         '+': ['Tc Z', ''],
-#         '-': ['Tc Z', ''],
-#         '<IDENTIFIER>': ['Tc Z', ''],
-#         '<INTEGER>': ['Tc Z', ''],
-#         '<STRING>': ['Tc Z', ''],
-#         'true': ['Tc Z', ''],
-#         'false': ['Tc Z', ''],
-#         'nil': ['Tc Z', ''],
-#         '(': ['Tc Z', ''],
-#         'dummy': ['Tc Z', '']
-#     },
-#     'Z': {
-#         'aug': ['aug Tc', 'aug'],
-#         'where': ['', '']
-#     },
-#     'Tc': {
-#         'not': ['B G', ''],
-#         '+': ['B G', ''],
-#         '-': ['B G', ''],
-#         '<IDENTIFIER>': ['B G', ''],
-#         '<INTEGER>': ['B G', ''],
-#         '<STRING>': ['B G', ''],
-#         'true': ['B G', ''],
-#         'false': ['B G', ''],
-#         'nil': ['B G', ''],
-#         '(': ['B G', ''],
-#         'dummy': ['B G', '']
-#     },
-#     'G': {
-#         '->': ['-> Tc | Tc', '->'],
-#         '(': ['', ''],
-#         ',': ['', '']
-#     },
-#     'B': {
-#         'not': ['Bt K', ''],
-#         '+': ['Bt K', ''],
-#         '-': ['Bt K', ''],
-#         '<IDENTIFIER>': ['Bt K', ''],
-#         '<INTEGER>': ['Bt K', ''],
-#         '<STRING>': ['Bt K', ''],
-#         'true': ['Bt K', ''],
-#         'false': ['Bt K', ''],
-#         'nil': ['Bt K', ''],
-#         '(': ['Bt K', ''],
-#         'dummy': ['Bt K', '']
-#     },
-#     'K': {
-#         'or': ['or Bt', 'or'],
-#         '->': ['', '']
-#     },
-#     'Bt': {
-#         'not': ['Bs L', ''],
-#         '+': ['Bs L', ''],
-#         '-': ['Bs L', ''],
-#         '<IDENTIFIER>': ['Bs L', ''],
-#         '<INTEGER>': ['Bs L', ''],
-#         '<STRING>': ['Bs L', ''],
-#         'true': ['Bs L', ''],
-#         'false': ['Bs L', ''],
-#         'nil': ['Bs L', ''],
-#         '(': ['Bs L', ''],
-#         'dummy': ['Bs L', '']
-#     },
-#     'L': {
-#         '&': ['& Bs', '&'],
-#         'or': ['', '']
-#     },
-#     'Bs': {
-#         'not': ['not Bp', 'not'],
-#         '+': ['Bp', ''],
-#         '-': ['Bp', ''],
-#         '<IDENTIFIER>': ['Bp', ''],
-#         '<INTEGER>': ['Bp', ''],
-#         '<STRING>': ['Bp', ''],
-#         'true': ['Bp', ''],
-#         'false': ['Bp', ''],
-#         'nil': ['Bp', ''],
-#         '(': ['Bp', ''],
-#         'dummy': ['Bp', '']
-#     },
-#     'Bp': {
-#         '+': ['A M', ''],
-#         '-': ['A M', ''],
-#         '<IDENTIFIER>': ['A M', ''],
-#         '<INTEGER>': ['A M', ''],
-#         '<STRING>': ['A M', ''],
-#         'true': ['A M', ''],
-#         'false': ['A M', ''],
-#         'nil': ['A M', ''],
-#         '(': ['A M', ''],
-#         'dummy': ['A M', '']
-#     },
-#     'M': {
-#         'gr' : ['gr A', 'gr'],
-#         '>': ['> A', 'gr'],
-#         'ge': ['ge A', 'ge'],
-#         '>=': ['>= A', 'ge'],
-#         'ls': ['ls A', 'ls'],
-#         '<': ['< A', 'ls'],
-#         'le': ['le A', 'le'],
-#         '<=': ['<= A', 'le'],
-#         'eq': ['eq A', 'eq'],
-#         'ne': ['ne A', 'ne'],
-#         '+': ['', ''],
-#         '-': ['', ''],
-#         '<IDENTIFIER>': ['', ''],
-#         '<INTEGER>': ['', ''],
-#         '<STRING>': ['', ''],
-#         'true': ['', ''],
-#         'false': ['', ''],
-#         'nil': ['', ''],
-#         '(': ['', ''],
-#         'dummy': ['', '']
-#     },
-#     'A': {
-#         '+': ['+ A', ''],
-#         '-': ['- A', 'neg'],
-#         'gr': ['At J', ''],
-#         '>': ['At J', ''],
-#         'ge': ['At J', ''],
-#         '>=': ['At J', ''],
-#         'ls': ['At J', ''],
-#         '<': ['At J', ''],
-#         'le': ['At J', ''],
-#         '<=': ['At J', ''],
-#         'eq': ['At J', ''],
-#         'ne': ['At J', '']
-#     },
-#     'At': {
-#         'gr': ['Af N', ''],
-#         '>': ['Af N', ''],
-#         'ge': ['Af N', ''],
-#         '>=': ['Af N', ''],
-#         'ls': ['Af N', ''],
-#         '<': ['Af N', ''],
-#         'le': ['Af N', ''],
-#         '<=': ['Af N', ''],
-#         'eq': ['Af N', ''],
-#         'ne': ['Af N', '']
-#     },
-#     'N': {
-#         '*': ['* Af', '*'],
-#         '/': ['/ Af', '/'],
-#         '+': ['', ''],
-#         '-': ['', '']
-#     },
-#     'J': {
-#         '+': ['+ At', '+'],
-#         '-': ['- At', '-'],
-#         '&': ['', ''],
-#         'or': ['', ''],
-#     },
-#     'Af': {
-#         '<IDENTIFIER>': ['Ap O', ''],
-#         '<INTEGER>': ['Ap O', ''],
-#         '<STRING>': ['Ap O', ''],
-#         'true': ['Ap O', ''],
-#         'false': ['Ap O', ''],
-#         'nil': ['Ap O', ''],
-#         '(': ['Ap O', ''],
-#         'dummy': ['Ap O', '']
-#     },
-#     'O': {
-#         '**': ['** Af', '**'],
-#         '+': ['', ''],
-#         '-': ['', '']
-#     },
-#     'Ap': {
-#         '<IDENTIFIER>': ['R Q', ''],
-#         '<INTEGER>': ['R Q', ''],
-#         '<STRING>': ['R Q', ''],
-#         'true': ['R Q', ''],
-#         'false': ['R Q', ''],
-#         'nil': ['R Q', ''],
-#         '(': ['R Q', ''],
-#         'dummy': ['R Q', '']
-#     },
-#     'Q': {
-#         '@<IDENTIFIER>': ['@<IDENTIFIER> R', '@'],
-#         '**': ['', '']
-#     },
-#     'D': {
-#         'rec': ['Da G', 'rec'],
-#         '<IDENTIFIER>': ['Da G', ''],
-#         'let': ['Da G', '']
-#     },
-#     'G': {
-#         'within': ['within D', 'within'],
-#         'in': ['', '']
-#     },
-#     'Da': {
-#         'rec': ['Dr H', ''],
-#         '<IDENTIFIER>': ['Dr H', ''],
-#         '(': ['Dr H', ''],
-#         'list': ['Dr H', '']
-#     },
-#     'H': {
-#         'and': ['(and Dr)+', 'and'],
-#         'within': ['', ''],
-#     },
-#     'Dr': {
-#         'rec': ['rec Db', 'rec'],
-#         '<IDENTIFIER>list': ['Db', ''],
-#         '(': ['Db', '']
-#     },
-#     'Db': {
-#         '<IDENTIFIER>list': ['Vl = E', '='],
-#         '(': ['Vl = E', '='],
-#         '<IDENTIFIER>': ['<IDENTIFIER> Vb+ = E', 'func_form'],
-#         '(': ['( D )', '']
-#     },
-#     'R': {
-#         '<IDENTIFIER>': ['Rn S', ''],
-#         '<INTEGER>': ['Rn S', ''],
-#         '<STRING>': ['Rn S', ''],
-#         'true': ['Rn S', ''],
-#         'false': ['Rn S', ''],
-#         'nil': ['Rn S', ''],
-#         '(': ['Rn S', ''],
-#         'dummy': ['Rn S', '']
-#     },
-#     'S': {
-#         '<IDENTIFIER>': ['R Rn', 'gamma'],
-#         '<INTEGER>': ['R Rn', 'gamma'],
-#         '<STRING>': ['R Rn', 'gamma'],
-#         'true': ['R Rn', 'gamma'],
-#         'false': ['R Rn', 'gamma'],
-#         'nil': ['R Rn', 'gamma'],
-#         '(': ['R Rn', 'gamma'],
-#         'dummy': ['R Rn', 'gamma']
-#     },
-#     'Rn': {
-#         '<IDENTIFIER>': ['<IDENTIFIER>', ''],
-#         '<INTEGER>': ['<INTEGER>', ''],
-#         '<STRING>': ['<STRING>', ''],
-#         'true': ['true', 'true'],
-#         'false': ['false', 'false'],
-#         'nil': ['nil', 'nil'],
-#         '(': ['( E )', ''],
-#         'dummy': ['dummy', 'dummy']
-#     },
-#     'Vb': {
-#         '<IDENTIFIER>': [ '<IDENTIFIER>', ''],
-#         '(': ['( I ', '']
-#     },
-#     'I': {
-#         '<IDENTIFIER>': ['Vl )', ''],
-#         '(': [')', '()']
-#     },
-#     'Vl': {
-#         '<IDENTIFIER>': ['<IDENTIFIER> list ,', ',?']
-#     }
-# }
-
 tokens = []
 ast_nodes = []
 
@@ -322,13 +15,13 @@ def E():
     if tokens[0] == 'let':
         tokens.pop(0)
         D()
-        if tokens[0] == 'in':
+        if len(tokens) > 0 and tokens[0] == 'in':
             tokens.pop(0)
             E()
             ast_nodes.append('let')
         
         else:
-            print("Error: Expected 'in' after 'let'")
+            raise SyntaxError("Error: Expected 'in' after 'let'")
             return
         
     elif tokens[0] == 'fn':
@@ -336,10 +29,13 @@ def E():
         Vb()
         while tokens[0] != '.':
             Vb()
-        if tokens[0] == '.':
+        if len(tokens) > 0 and tokens[0] == '.':
             tokens.pop(0)
             E()
             ast_nodes.append('lambda')
+        else:
+            raise SyntaxError("Error: Expected '.' after 'fn'")
+            return
     else:
         Ew()
 
@@ -351,7 +47,7 @@ def E():
 def Ew():
     print(tokens[0])
     T()
-    if tokens[0] == 'where':
+    if len(tokens) > 0 and tokens[0] == 'where':
         tokens.pop(0)
         Dr()
         ast_nodes.append('where')
@@ -363,7 +59,7 @@ def Ew():
 def T():
     print(tokens[0])
     Ta()
-    while tokens[0] == ',':
+    while len(tokens) > 0 and tokens[0] == ',':
         tokens.pop(0)
         Ta()
         if tokens[0] != ',':
@@ -376,7 +72,7 @@ def T():
 def Ta():
     print(tokens[0])
     Tc()
-    while tokens[0] == 'aug':
+    while len(tokens) > 0 and tokens[0] == 'aug':
         tokens.pop(0)
         Tc()
         if tokens[0] != 'aug':
@@ -389,7 +85,7 @@ def Ta():
 def Tc():
     print(tokens[0])
     B()
-    if tokens[0] == '->':
+    if len(tokens) > 0 and tokens[0] == '->':
         tokens.pop(0)
         Tc()
         if tokens[0] == '|':
@@ -397,7 +93,7 @@ def Tc():
             Tc()
             ast_nodes.append('->')
         else:
-            print("Error: Expected '|'")
+            raise SyntaxError("Error: Expected '|'")
             return
 
 
@@ -407,7 +103,7 @@ def Tc():
 def B():
     print(tokens[0])
     Bt()
-    while tokens[0] == 'or':
+    while len(tokens) > 0 and tokens[0] == 'or':
         tokens.pop(0)
         Bt()
         if tokens[0] != 'or':
@@ -420,7 +116,7 @@ def B():
 def Bt():
     print(tokens[0])
     Bs()
-    while tokens[0] == '&':
+    while len(tokens) > 0 and tokens[0] == '&':
         tokens.pop(0)
         Bs()
         if tokens[0] != '&':
@@ -451,30 +147,31 @@ def Bs():
 def Bp():
     print(tokens[0])
     A()
-    if tokens[0] == 'gr' or tokens[0] == '>':
-        tokens.pop(0)
-        A()
-        ast_nodes.append('gr')
-    elif tokens[0] == 'ge' or tokens[0] == '>=':
-        tokens.pop(0)
-        A()
-        ast_nodes.append('ge')
-    elif tokens[0] == 'ls' or tokens[0] == '<':
-        tokens.pop(0)
-        A()
-        ast_nodes.append('ls')
-    elif tokens[0] == 'le' or tokens[0] == '<=':
-        tokens.pop(0)
-        A()
-        ast_nodes.append('le')
-    elif tokens[0] == 'eq':
-        tokens.pop(0)
-        A()
-        ast_nodes.append('eq')
-    elif tokens[0] == 'ne':
-        tokens.pop(0)
-        A()
-        ast_nodes.append('ne')
+    if len(tokens) > 0:
+        if tokens[0] == 'gr' or tokens[0] == '>':
+            tokens.pop(0)
+            A()
+            ast_nodes.append('gr')
+        elif tokens[0] == 'ge' or tokens[0] == '>=':
+            tokens.pop(0)
+            A()
+            ast_nodes.append('ge')
+        elif tokens[0] == 'ls' or tokens[0] == '<':
+            tokens.pop(0)
+            A()
+            ast_nodes.append('ls')
+        elif tokens[0] == 'le' or tokens[0] == '<=':
+            tokens.pop(0)
+            A()
+            ast_nodes.append('le')
+        elif tokens[0] == 'eq':
+            tokens.pop(0)
+            A()
+            ast_nodes.append('eq')
+        elif tokens[0] == 'ne':
+            tokens.pop(0)
+            A()
+            ast_nodes.append('ne')
 
 
 '''A 	-> A '+' At => '+'
@@ -494,7 +191,7 @@ def A():
         ast_nodes.append('neg')
     else:
         At()
-        while tokens[0] == '+' or tokens[0] == '-':
+        while len(tokens) > 0 and (tokens[0] == '+' or tokens[0] == '-'):
             if tokens[0] == '+':
                 tokens.pop(0)
                 At()
@@ -513,7 +210,7 @@ def A():
 def At():
     print(tokens[0])
     Af()
-    while tokens[0] == '*' or tokens[0] == '/':
+    while len(tokens) > 0 and (tokens[0] == '*' or tokens[0] == '/'):
         if tokens[0] == '*':
             tokens.pop(0)
             Af()
@@ -532,7 +229,7 @@ def At():
 def Af():
     print(tokens[0])
     Ap()
-    while tokens[0] == '**':
+    while len(tokens) > 0 and tokens[0] == '**':
         tokens.pop(0)
         Af()
         if tokens[0] != '**':
@@ -545,17 +242,17 @@ def Af():
 def Ap():
     print(tokens[0])
     R()
-    while tokens[0] == '@':
+    while len(tokens) > 0 and tokens[0] == '@':
         tokens.pop(0)
         if tokens[0] == '<IDENTIFIER>':
             tokens.pop(0)
             R()
             ast_nodes.append('@')
-        else:
-            print("Error: Expected '<IDENTIFIER>' after '@'")
             return
-    else:
-        R()
+        else:
+            raise SyntaxError("Error: Expected '<IDENTIFIER>' after '@'")
+            return
+    
 
 
 '''R 	-> R Rn => 'gamma'
@@ -563,13 +260,13 @@ def Ap():
 '''
 def R():
     print(tokens[0])
-    if tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == ')' or tokens[0] == '(':
+    if tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == '(':
         Rn()
-        while tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == ')' or tokens[0] == '(':
+        while len(tokens) > 0 and (tokens[0] == '<IDENTIFIER>' or tokens[0] == '<INTEGER>' or tokens[0] == '<STRING>' or tokens[0] == 'true' or tokens[0] == 'false' or tokens[0] == 'nil' or tokens[0] == 'dummy' or tokens[0] == '('):
             Rn()
             ast_nodes.append('gamma')
     else:
-        print("Error: Expected a valid token")
+        raise SyntaxError("Error: Expected a valid token")
         return
 
 
@@ -605,13 +302,13 @@ def Rn():
         if tokens[0] == ')':
             tokens.pop(0)
         else:
-            print("Error: Expected ')'")
+            raise SyntaxError("Error: Expected ')'")
             return
     elif tokens[0] == 'dummy':
         tokens.pop(0)
         ast_nodes.append('dummy')
     else:
-        print("Error: Expected a valid token")
+        raise SyntaxError("Error: Expected a valid token")
         return
 
 
@@ -663,9 +360,13 @@ def Db():
         Vb()
         while tokens[0] != '=':
             Vb()
-        tokens.pop(0)
-        E()
-        ast_nodes.append('fcn_form')
+        if tokens[0] == '=':
+            tokens.pop(0)
+            E()
+            ast_nodes.append('fcn_form')
+        else:
+            raise SyntaxError("Error: Expected '='")
+            return
         
     elif tokens[0] == '(':
         tokens.pop(0)
@@ -673,7 +374,7 @@ def Db():
         if tokens[0] == ')':
             tokens.pop(0)
         else:
-            print("Error: Expected ')'")
+            raise SyntaxError("Error: Expected ')'")
             return
     else:
         Vl()
@@ -682,7 +383,7 @@ def Db():
             E()
             ast_nodes.append('=')
         else:
-            print("Error: Expected '='")
+            raise SyntaxError("Error: Expected '='")
             return
         
 
@@ -706,12 +407,10 @@ def Vb():
             ast_nodes.append('()')
             return
         else:
-            print("Error: Expected a valid token")
+            raise SyntaxError("Error: Expected a valid token")
             return
         
-    else:
-        print("Error: Expected a valid token")
-        return
+    
     
 
 '''Vl -> '<IDENTIFIER>' list ',' => ','?
@@ -727,15 +426,15 @@ def Vl():
             elif tokens[0] != ',':
                 ast_nodes.append("','?")
             else:
-                print("Error: Expected '<IDENTIFIER>' after ','")
+                raise SyntaxError("Error: Expected '<IDENTIFIER>' after ','")
                 return
     else:
-        print("Error: Expected '<IDENTIFIER>'")
+        raise SyntaxError("Expected '<IDENTIFIER>'")
         return
 
 def parser():
     E()
-    return
+    return ast_nodes
 
 
 def build_ast(reduced_grammar):
@@ -743,7 +442,19 @@ def build_ast(reduced_grammar):
     # to be implemented
     return ast
 
+# <IDENTIFIER:let>
+# <IDENTIFIER:x>
+# <OPERATOR:=>
+# <INTEGER:53>
+# <OPERATOR:+>
+# <INTEGER:39>
+# <IDENTIFIER:in>
+# <IDENTIFIER:Print>
+# (
+# <STRING:Hello World>
+# )
 
-input_str = "let <IDENTIFIER> = <INTEGER> in <INTEGER> + <INTEGER> - <STRING> where <IDENTIFIER> = <INTEGER>"
+
+input_str = "let <IDENTIFIER> = <INTEGER> + <INTEGER> in <IDENTIFIER> ( <STRING> )"
 tokens = input_str.split(" ")
-parser()
+print(parser())
