@@ -12,6 +12,7 @@ class TokenType(Enum):
     SEMICOLON = auto()  # ;
     COMMA = auto()  # ,
     EOF = auto()  # End of file
+    KEYWORD = auto()  # Keywords like 'let', 'in', etc.
 
 
 class Token:
@@ -85,6 +86,10 @@ class Lexer:
             '+', '-', '*', '<', '>', '&', '.', '@', '/', ':', '=', '~',
             '|', '$', '!', '#', '%', '^', '_', '[', ']', '{', '}', '"', '`', '?'
         }
+        keywords = {
+            'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 
+            'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
+        }
 
         while self.current_char and self.current_char != "'":
             if self.current_char == '\\':
@@ -102,7 +107,8 @@ class Lexer:
                 if not (self.current_char in allowed_punctuation or
                         self.current_char.isalpha() or
                         self.current_char.isdigit() or
-                        self.current_char in operator_symbols):
+                        self.current_char in operator_symbols or
+                        self.current_char in keywords):
                     raise SyntaxError(
                         f"Invalid character '{self.current_char}' in string at {self.line}:{self.column}. "
                         f"Only letters, digits, specified punctuation, and operator symbols allowed."
@@ -143,6 +149,15 @@ class Lexer:
             result.append(self.current_char)
             self.advance()
         return ''.join(result)
+    
+    def get_keyword(self):
+        keywords = {
+            'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 
+            'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
+        }
+        result = self.get_identifier()
+        if result in keywords:
+            return result
 
     def get_next_token(self):
         while self.current_char:
@@ -198,6 +213,15 @@ class Lexer:
 
         return Token(TokenType.EOF, None, self.line, self.column)
 
+    def check_keywords(self, token):
+        keywords = {
+            'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr',
+            'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
+        }
+        if token.value in keywords:
+            return Token(TokenType.KEYWORD, token.value, token.line, token.column)
+        return token
+
     def peek(self):
         peek_pos = self.position + 1
         return self.source_code[peek_pos] if peek_pos < len(self.source_code) else None
@@ -206,18 +230,26 @@ class Lexer:
         tokens = []
         while True:
             token = self.get_next_token()
+            token = self.check_keywords(token)
             if token.type == TokenType.EOF:
                 break
             tokens.append(token)
         return tokens
 
+# source_code = """
+# let x = 53 + 39 // This is a comment
+# in Print('Hello World')
+# """
+
 source_code = """
-let x = 53 + 39 // This is a comment
-in Print('Hello World')
+let Sum(A) = Psum (A,Order A )
+where rec Psum (T,N) = N eq 0 -> 0
+ | Psum(T,N-1)+T N
+in Print ( Sum (1,2,3,4,5) )
 """
 
 lexer = Lexer(source_code)
 tokens = lexer.tokenize()
 
-for token in tokens:
-    print(token)
+# for token in tokens:
+#     print(token)
