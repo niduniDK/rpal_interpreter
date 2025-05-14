@@ -24,7 +24,7 @@ def main():
             # Parse content
             if print_ast:
                 print("Printing AST...")
-                parser.print_ast()
+                parser.print_ast(content)
             else:
                 print("Running RPAL program...")
     except FileNotFoundError:
