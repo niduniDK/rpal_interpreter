@@ -37,7 +37,7 @@ cd rpal-interpreter
 Run with Python 3.7+:
 
 ```bash
-python main.py -ast teststing_scripts/Q!.txt
+python main.py -ast teststing_scripts/sample.txt
 ```
 
 ##🛠 Built With
