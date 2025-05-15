@@ -23,7 +23,6 @@ def main():
             content = file.read()
             # Parse content
             if print_ast:
-                print("Printing AST...")
                 parser.print_ast(content)
             else:
                 print("Running RPAL program...")

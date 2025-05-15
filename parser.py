@@ -530,7 +530,7 @@ def Af():
         
 
 
-'''Ap 	-> Ap '@' TokenType.IDENTIFIER R => '@'
+'''Ap 	-> Ap '@' TokenType.ID R => '@'
 				-> R ;
 '''
 def Ap():
@@ -546,7 +546,7 @@ def Ap():
             ast_nodes.append('@')
             tokens.pop(0)
             
-            if tokens[0].type == TokenType.IDENTIFIER:
+            if tokens[0].type == TokenType.ID:
                 token_value = tokens[0]
                 node2 = Node(token_value)
                 
@@ -562,7 +562,7 @@ def Ap():
                     # print(str(node.value), list(child.value for child in node.children if child))
                 
             else:
-                raise SyntaxError("Error: Expected TokenType.IDENTIFIER after '@'")
+                raise SyntaxError("Error: Expected TokenType.ID after '@'")
         return node    
     return node1
 
@@ -574,7 +574,7 @@ def R():
     # print(tokens[0].value, "R")
     node1 = Rn()
 
-    # if len(tokens) > 0 and (tokens[0].type == TokenType.IDENTIFIER or tokens[0].type == TokenType.INTEGER or tokens[0].type == TokenType.STRING or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
+    # if len(tokens) > 0 and (tokens[0].type == TokenType.ID or tokens[0].type == TokenType.INT or tokens[0].type == TokenType.STR or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
     #     node = Node('gamma')
         
     #     if node: print(str(node.value), list(child.value for child in node.children if child))
@@ -585,7 +585,7 @@ def R():
     
     #         return node
         
-    while len(tokens) > 0 and (tokens[0].type == TokenType.IDENTIFIER or tokens[0].type == TokenType.INTEGER or tokens[0].type == TokenType.STRING or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
+    while len(tokens) > 0 and (tokens[0].type == TokenType.ID or tokens[0].type == TokenType.INT or tokens[0].type == TokenType.STR or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
         node = Node('gamma')
         ast_nodes.append('gamma')
 
@@ -595,15 +595,15 @@ def R():
             node.children.append(node1)
             node.children.append(node2)
             # print(str(node.value), list(child.value for child in node.children if child))
-        if len(tokens) > 0 and tokens[0].value not in keywords and (tokens[0].type == TokenType.IDENTIFIER or tokens[0].type == TokenType.INTEGER or tokens[0].type == TokenType.STRING or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
+        if len(tokens) > 0 and tokens[0].value not in keywords and (tokens[0].type == TokenType.ID or tokens[0].type == TokenType.INT or tokens[0].type == TokenType.STR or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
             continue
         else: return node
     return node1
 
 
-'''Rn 	-> TokenType.IDENTIFIER
-				-> TokenType.INTEGER
-				-> TokenType.STRING
+'''Rn 	-> TokenType.ID
+				-> TokenType.INT
+				-> TokenType.STR
 				-> 'true' => 'true'
 				-> 'false' => 'false'
 				-> 'nil' => 'nil'
@@ -612,19 +612,19 @@ def R():
 '''
 def Rn():
     # print(tokens[0].value, "Rn")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
         return node
         
-    elif tokens[0].type == TokenType.INTEGER:
+    elif tokens[0].type == TokenType.INT:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
         return node
         
-    elif tokens[0].type == TokenType.STRING:
+    elif tokens[0].type == TokenType.STR:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
@@ -741,12 +741,12 @@ def Dr():
 
 
 '''Db  -> Vl '=' E => '='
-				-> TokenType.IDENTIFIER Vb+ '=' E => 'fcn_form'
+				-> TokenType.ID Vb+ '=' E => 'fcn_form'
 				-> '(' D ')' ; 
 '''
 def Db():
     # print(tokens[0].value, "Rn")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         node = Node('function_form')
         ast_nodes.append('function_form')
         
@@ -813,13 +813,13 @@ def Db():
             
     
 
-'''Vb  -> TokenType.IDENTIFIER
+'''Vb  -> TokenType.ID
 			-> '(' Vl ')'
 			-> '(' ')' => '()';
 '''
 def Vb():
     # print(tokens[0].value, "Vb")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
@@ -855,11 +855,11 @@ def Vb():
     
     
 
-'''Vl -> TokenType.IDENTIFIER list ',' => ','?
+'''Vl -> TokenType.ID list ',' => ','?
 '''
 def Vl():
     # print(tokens[0].value, "Vl")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         # node = Node("','?")
         # ast_nodes.append("','?")
 
@@ -885,7 +885,7 @@ def Vl():
             #     node.children.append(node2)
             #     # print(str(node.value), list(child.value for child in node.children if child))
             
-            if tokens[0].type == TokenType.IDENTIFIER:
+            if tokens[0].type == TokenType.ID:
                 node3 = Node(tokens[0])
                 ast_nodes.append(tokens.pop(0))
                 
@@ -894,11 +894,11 @@ def Vl():
                     # print(str(node.value), list(child.value for child in node.children if child))
                  
             else:
-                raise SyntaxError("Error: Expected TokenType.IDENTIFIER after ','")
+                raise SyntaxError("Error: Expected TokenType.ID after ','")
         return node
                 
     else:
-        raise SyntaxError("Error: Expected TokenType.IDENTIFIER after ','")
+        raise SyntaxError("Error: Expected TokenType.ID after ','")
 
 
 def parser(source_code):

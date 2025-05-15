@@ -3,21 +3,21 @@ from enum import Enum, auto
 
 
 class TokenType(Enum):
-    IDENTIFIER = auto()
-    INTEGER = auto()
-    OPERATOR = auto()
-    STRING = auto()
+    ID = auto()
+    INT = auto()
+    OP = auto()
+    STR = auto()
     LPAREN = auto()  # (
     RPAREN = auto()  # )
     SEMICOLON = auto()  # ;
     COMMA = auto()  # ,
     EOF = auto()  # End of file
-    KEYWORD = auto()  # Keywords like 'let', 'in', etc.
+    KW = auto()  # KWs like 'let', 'in', etc.
 
 
 class Token:
     def __init__(self, type, value, line, column):
-        self.type = type  # What kind of token (e.g., IDENTIFIER, INTEGER)
+        self.type = type  # What kind of token (e.g., ID, INT)
         self.value = value  # The actual text/number (e.g., "x", 42)
         self.line = line  # Source code line number
         self.column = column  # Position in the line
@@ -76,17 +76,17 @@ class Lexer:
             if self.current_char == '\n':
                 self.advance()
 
-    def get_string(self):
+    def get_str(self):
         result = []
         self.advance()  # Skip opening quote
 
         escape_map = {'t': '\t', 'n': '\n', '\\': '\\', "'": "'"}
         allowed_punctuation = {'(', ')', ';', ',', ' '}
-        operator_symbols = {
+        op_symbols = {
             '+', '-', '*', '<', '>', '&', '.', '@', '/', ':', '=', '~',
             '|', '$', '!', '#', '%', '^', '_', '[', ']', '{', '}', '"', '`', '?'
         }
-        keywords = {
+        KWs = {
             'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 
             'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
         }
@@ -107,22 +107,22 @@ class Lexer:
                 if not (self.current_char in allowed_punctuation or
                         self.current_char.isalpha() or
                         self.current_char.isdigit() or
-                        self.current_char in operator_symbols or
-                        self.current_char in keywords):
+                        self.current_char in op_symbols or
+                        self.current_char in KWs):
                     raise SyntaxError(
-                        f"Invalid character '{self.current_char}' in string at {self.line}:{self.column}. "
-                        f"Only letters, digits, specified punctuation, and operator symbols allowed."
+                        f"Invalid character '{self.current_char}' in str at {self.line}:{self.column}. "
+                        f"Only letters, digits, specified punctuation, and op symbols allowed."
                     )
                 result.append(self.current_char)
             self.advance()
 
         if not self.current_char:
-            raise SyntaxError(f"Unterminated string at {self.line}:{self.column}")
+            raise SyntaxError(f"Unterminated str at {self.line}:{self.column}")
 
         self.advance()  # Skip closing quote
         return ''.join(result)
 
-    def get_identifier(self):
+    def get_id(self):
         result = []
         while (self.current_char and
                (self.current_char.isalpha() or
@@ -132,31 +132,31 @@ class Lexer:
             self.advance()
         return ''.join(result)
 
-    def get_integer(self):
+    def get_int(self):
         result = []
         while self.current_char and self.current_char.isdigit():
             result.append(self.current_char)
             self.advance()
         return int(''.join(result))
 
-    def get_operator(self):
-        operator_symbols = {
+    def get_op(self):
+        op_symbols = {
             '+', '-', '*', '<', '>', '&', '.', '@', '/', ':', '=', '~',
             '|', '$', '!', '#', '%', '^', '_', '[', ']', '{', '}', '"', '`', '?'
         }
         result = []
-        while self.current_char and self.current_char in operator_symbols:
+        while self.current_char and self.current_char in op_symbols:
             result.append(self.current_char)
             self.advance()
         return ''.join(result)
     
-    def get_keyword(self):
-        keywords = {
+    def get_KW(self):
+        KWs = {
             'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 
             'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
         }
-        result = self.get_identifier()
-        if result in keywords:
+        result = self.get_id()
+        if result in KWs:
             return result
 
     def get_next_token(self):
@@ -170,17 +170,17 @@ class Lexer:
                 self.skip_comment()
                 continue
 
-            # Handle STRING tokens
+            # Handle STR tokens
             if self.current_char == "'":
-                return Token(TokenType.STRING, self.get_string(), self.line, self.column)
+                return Token(TokenType.STR, self.get_str(), self.line, self.column)
 
-            # Handle IDENTIFIER tokens
+            # Handle ID tokens
             if self.current_char.isalpha():
-                return Token(TokenType.IDENTIFIER, self.get_identifier(), self.line, self.column)
+                return Token(TokenType.ID, self.get_id(), self.line, self.column)
 
-            # Handle INTEGER tokens
+            # Handle INT tokens
             if self.current_char.isdigit():
-                return Token(TokenType.INTEGER, self.get_integer(), self.line, self.column)
+                return Token(TokenType.INT, self.get_int(), self.line, self.column)
 
             # Handle punctuation
             if self.current_char == '(':
@@ -203,23 +203,23 @@ class Lexer:
                 self.advance()
                 return token
 
-            # Handle OPERATOR tokens
+            # Handle OP tokens
             if self.current_char in {'+', '-', '*', '<', '>', '&', '.', '@',
                                      '/', ':', '=', '~', '|', '$', '!', '#',
                                      '%', '^', '_', '[', ']', '{', '}', '"', '`', '?'}:
-                return Token(TokenType.OPERATOR, self.get_operator(), self.line, self.column)
+                return Token(TokenType.OP, self.get_op(), self.line, self.column)
 
             raise SyntaxError(f"Unexpected character '{self.current_char}' at {self.line}:{self.column}")
 
         return Token(TokenType.EOF, None, self.line, self.column)
 
-    def check_keywords(self, token):
-        keywords = {
+    def check_KWs(self, token):
+        KWs = {
             'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr',
             'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
         }
-        if token.value in keywords:
-            return Token(TokenType.KEYWORD, token.value, token.line, token.column)
+        if token.value in KWs:
+            return Token(TokenType.KW, token.value, token.line, token.column)
         return token
 
     def peek(self):
@@ -230,7 +230,7 @@ class Lexer:
         tokens = []
         while True:
             token = self.get_next_token()
-            token = self.check_keywords(token)
+            token = self.check_KWs(token)
             if token.type == TokenType.EOF:
                 break
             tokens.append(token)
