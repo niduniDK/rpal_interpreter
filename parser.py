@@ -29,16 +29,10 @@ def E():
         if node: 
             
             node.children.append(node3)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         if len(tokens) > 0 and tokens[0].value == 'in':
             tokens.pop(0)
-            # node1 = Node('gamma')
-            
-            # if node:
-            #     node.children.append(node1)
-            #     # print(str(node.value), list(child.value for child in node.children if child))
-            # ast_nodes.append('gamma')
             
             node2 = E()
             
@@ -61,7 +55,7 @@ def E():
         if node: 
             
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))  # Add node1 as a child, not to ast_nodes
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)  # Add node1 as a child, not to ast_nodes
 
         while tokens[0].value != '.':
             node2 = Vb()
@@ -69,7 +63,7 @@ def E():
             if node: 
                 
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         if len(tokens) > 0 and tokens[0].value == '.':
             token_value = tokens[0].value
@@ -79,14 +73,14 @@ def E():
             
             if node:
                 node.children.append(node3)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             
             node4 = E()
             
             if node: 
                 
                 node.children.append(node4)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
     
             return node
     else:
@@ -107,7 +101,7 @@ def Ew():
         
         if node:
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         ast_nodes.append('where')
         tokens.pop(0)
         
@@ -115,7 +109,7 @@ def Ew():
         
         if node:
             node.children.append(node2)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     
     return node1
@@ -135,7 +129,7 @@ def T():
         if node: 
             
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         ast_nodes.append('tau')
 
         while len(tokens) > 0 and tokens[0].value == ',':
@@ -144,7 +138,7 @@ def T():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     
     return node1
@@ -162,7 +156,7 @@ def Ta():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('aug')
             tokens.pop(0)
             
@@ -170,7 +164,7 @@ def Ta():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     return node1
 
@@ -186,7 +180,7 @@ def Tc():
         
         if node:
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         ast_nodes.append('->')
         tokens.pop(0)
 
@@ -195,7 +189,7 @@ def Tc():
         if node: 
             
             node.children.append(node2)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         if tokens[0].value == '|':
             tokens.pop(0)
@@ -203,7 +197,7 @@ def Tc():
             
             if node:
                 node.children.append(node3)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         else:
             raise SyntaxError("Error: Expected '|'")
@@ -225,7 +219,7 @@ def B():
             if node: 
                 
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('or')
             tokens.pop(0)
             
@@ -234,7 +228,7 @@ def B():
             if node: 
                 
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     return node1
 
@@ -251,7 +245,7 @@ def Bt():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('&')
             tokens.pop(0)
             
@@ -260,7 +254,7 @@ def Bt():
             if node: 
                 
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     return node1
 
@@ -280,7 +274,7 @@ def Bs():
         if node: 
             
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         return node
         
@@ -305,7 +299,7 @@ def Bp():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('gr')
             tokens.pop(0)
 
@@ -313,7 +307,7 @@ def Bp():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
             
         elif tokens[0].value == 'ge' or tokens[0].value == '>=':
@@ -321,7 +315,7 @@ def Bp():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('ge')
             tokens.pop(0)
             
@@ -329,7 +323,7 @@ def Bp():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
             
         elif tokens[0].value == 'ls' or tokens[0].value == '<':
@@ -337,7 +331,7 @@ def Bp():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('ls')
             tokens.pop(0)
             
@@ -345,7 +339,7 @@ def Bp():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
             
         elif tokens[0].value == 'le' or tokens[0].value == '<=':
@@ -353,7 +347,7 @@ def Bp():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('le')
             tokens.pop(0)
             
@@ -361,7 +355,7 @@ def Bp():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
             
         elif tokens[0].value == 'eq':
@@ -369,7 +363,7 @@ def Bp():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('eq')
             tokens.pop(0)
             
@@ -377,7 +371,7 @@ def Bp():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
             
         elif tokens[0].value == 'ne':
@@ -385,7 +379,7 @@ def Bp():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('ne')
             tokens.pop(0)
             
@@ -393,7 +387,7 @@ def Bp():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
     return node1
 
@@ -419,7 +413,7 @@ def A():
         
         if node:
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         return node
         
@@ -429,10 +423,9 @@ def A():
             while len(tokens) > 0 and (tokens[0].value == '+' or tokens[0].value == '-'):
                 if tokens[0].value == '+':
                     node = Node('+')
-                    
                     if node:
                         node.children.append(node1)
-                        # print(str(node.value), list(child.value for child in node.children if child))
+                        # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                     ast_nodes.append('+')
                     tokens.pop(0)
                     
@@ -440,14 +433,18 @@ def A():
                     
                     if node:
                         node.children.append(node2)
-                        # print(str(node.value), list(child.value for child in node.children if child))
+                        # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+                    
+                    if len(tokens) > 0 and (tokens[0].value == '+' or tokens[0].value == '-'):
+                        node1 = node
+                        continue
                     
                 elif tokens[0].value == '-':
                     node = Node('-')
                     
                     if node:
                         node.children.append(node1)
-                        # print(str(node.value), list(child.value for child in node.children if child))
+                        # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                     ast_nodes.append('-')
                     tokens.pop(0)
                     
@@ -455,9 +452,11 @@ def A():
                     
                     if node:
                         node.children.append(node2)
-                        # print(str(node.value), list(child.value for child in node.children if child))
-
-            return node
+                        # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+                    if len(tokens) > 0 and (tokens[0].value == '+' or tokens[0].value == '-'):
+                        node1 = node
+                        continue
+                return node
         return node1
                 
 
@@ -475,7 +474,7 @@ def At():
                 
                 if node:
                     node.children.append(node1)
-                    # print(str(node.value), list(child.value for child in node.children if child))
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                 ast_nodes.append('*')
                 tokens.pop(0)
                 
@@ -483,14 +482,17 @@ def At():
                 
                 if node:
                     node.children.append(node2)
-                    # print(str(node.value), list(child.value for child in node.children if child))
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+                if len(tokens) > 0 and (tokens[0].value == '*' or tokens[0].value == '/'):
+                    node1 = node
+                    continue
                 
             elif tokens[0].value == '/':
                 node = Node('/')
                 
                 if node:
                     node.children.append(node1)
-                    # print(str(node.value), list(child.value for child in node.children if child))
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                 ast_nodes.append('/')
                 tokens.pop(0)
                 
@@ -498,8 +500,11 @@ def At():
                 
                 if node:
                     node.children.append(node2)
-                    # print(str(node.value), list(child.value for child in node.children if child))
-        return node
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+                if len(tokens) > 0 and (tokens[0].value == '*' or tokens[0].value == '/'):
+                    node1 = node
+                    continue
+            return node
     return node1
             
 
@@ -516,7 +521,7 @@ def Af():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('**')
             tokens.pop(0)
             
@@ -524,13 +529,13 @@ def Af():
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     return node1
         
 
 
-'''Ap 	-> Ap '@' TokenType.IDENTIFIER R => '@'
+'''Ap 	-> Ap '@' TokenType.ID R => '@'
 				-> R ;
 '''
 def Ap():
@@ -542,27 +547,29 @@ def Ap():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('@')
             tokens.pop(0)
             
-            if tokens[0].type == TokenType.IDENTIFIER:
+            if tokens[0].type == TokenType.ID:
                 token_value = tokens[0]
                 node2 = Node(token_value)
                 
                 if node:
                     node.children.append(node2)
-                    # print(str(node.value), list(child.value for child in node.children if child))
+                    print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                 ast_nodes.append(tokens.pop(0).value)
                 
                 node3 = R()
                 
                 if node:
                     node.children.append(node3)
-                    # print(str(node.value), list(child.value for child in node.children if child))
+                    print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                 
             else:
-                raise SyntaxError("Error: Expected TokenType.IDENTIFIER after '@'")
+                raise SyntaxError("Error: Expected TokenType.ID after '@'")
+        
+        # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node    
     return node1
 
@@ -573,19 +580,8 @@ def Ap():
 def R():
     # print(tokens[0].value, "R")
     node1 = Rn()
-
-    # if len(tokens) > 0 and (tokens[0].type == TokenType.IDENTIFIER or tokens[0].type == TokenType.INTEGER or tokens[0].type == TokenType.STRING or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
-    #     node = Node('gamma')
         
-    #     if node: print(str(node.value), list(child.value for child in node.children if child))
-    #     ast_nodes.append('gamma')
-    #     if tokens[0].value == 'in':
-    #         # node = Node(tokens[0])
-    #         # ast_nodes.append('gamma')
-    
-    #         return node
-        
-    while len(tokens) > 0 and (tokens[0].type == TokenType.IDENTIFIER or tokens[0].type == TokenType.INTEGER or tokens[0].type == TokenType.STRING or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
+    while len(tokens) > 0 and (tokens[0].type == TokenType.ID or tokens[0].type == TokenType.INT or tokens[0].type == TokenType.STR or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
         node = Node('gamma')
         ast_nodes.append('gamma')
 
@@ -594,16 +590,16 @@ def R():
         if node: 
             node.children.append(node1)
             node.children.append(node2)
-            # print(str(node.value), list(child.value for child in node.children if child))
-        if len(tokens) > 0 and tokens[0].value not in keywords and (tokens[0].type == TokenType.IDENTIFIER or tokens[0].type == TokenType.INTEGER or tokens[0].type == TokenType.STRING or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+        if len(tokens) > 0 and tokens[0].value not in keywords and (tokens[0].type == TokenType.ID or tokens[0].type == TokenType.INT or tokens[0].type == TokenType.STR or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
             continue
         else: return node
     return node1
 
 
-'''Rn 	-> TokenType.IDENTIFIER
-				-> TokenType.INTEGER
-				-> TokenType.STRING
+'''Rn 	-> TokenType.ID
+				-> TokenType.INT
+				-> TokenType.STR
 				-> 'true' => 'true'
 				-> 'false' => 'false'
 				-> 'nil' => 'nil'
@@ -612,19 +608,19 @@ def R():
 '''
 def Rn():
     # print(tokens[0].value, "Rn")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
         return node
         
-    elif tokens[0].type == TokenType.INTEGER:
+    elif tokens[0].type == TokenType.INT:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
         return node
         
-    elif tokens[0].type == TokenType.STRING:
+    elif tokens[0].type == TokenType.STR:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
@@ -673,14 +669,14 @@ def Rn():
 				-> Da ;
 '''
 def D():
-    # print(tokens[0].value, "Rn")
+    # print(tokens[0].value, "D")
     node1 = Da()
     if tokens[0].value == 'within':
         node = Node('within')
         
         if node:
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         ast_nodes.append('within')
         tokens.pop(0)
         
@@ -688,7 +684,7 @@ def D():
         
         if node:
             node.children.append(node2)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     return node1
         
@@ -697,7 +693,7 @@ def D():
 					-> Dr ;
 '''
 def Da():
-    # print(tokens[0].value, "Rn")
+    # print(tokens[0].value, "Da")
     node1 = Dr()
     if len(tokens) > 0 and tokens[0].value == 'and':
         while tokens[0].value == 'and':
@@ -706,14 +702,14 @@ def Da():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('and')
             
             node2 = Dr()
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         return node
     return node1
 
@@ -722,7 +718,7 @@ def Da():
 					-> Db ;
 '''
 def Dr():
-    # print(tokens[0].value, "Rn")
+    # print(tokens[0].value, "Dr")
     if tokens[0].value == 'rec':
         tokens.pop(0)
         node = Node('rec')
@@ -732,7 +728,7 @@ def Dr():
         
         if node:
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         return node
         
@@ -741,12 +737,12 @@ def Dr():
 
 
 '''Db  -> Vl '=' E => '='
-				-> TokenType.IDENTIFIER Vb+ '=' E => 'fcn_form'
+				-> TokenType.ID Vb+ '=' E => 'fcn_form'
 				-> '(' D ')' ; 
 '''
 def Db():
-    # print(tokens[0].value, "Rn")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    # print(tokens[0].value, "Db")
+    if tokens[0].type == TokenType.ID:
         node = Node('function_form')
         ast_nodes.append('function_form')
         
@@ -754,21 +750,21 @@ def Db():
         
         if node:
             node.children.append(node1)
-            # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         while tokens[0].value != '=':
             node2 = Vb()
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         if tokens[0].value == '=':
             tokens.pop(0)
             node3 = E()
             
             if node:
                 node.children.append(node3)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
     
             return node
             
@@ -776,14 +772,10 @@ def Db():
             raise SyntaxError("Error: Expected '='")
         
     elif str(tokens[0]) == '(':
-        # node = Node(tokens[0])
-        # ast_nodes.append(tokens.pop(0))
         tokens.pop(0)
         
         node = D()
         if str(tokens[0]) == ')':
-            # node = Node(tokens[0])
-            # ast_nodes.append(tokens.pop(0))
             tokens.pop(0)
     
             return node
@@ -799,40 +791,36 @@ def Db():
             
             if node:
                 node.children.append(node1)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             ast_nodes.append('=')
             
             node2 = E()
             
             if node:
                 node.children.append(node2)
-                # print(str(node.value), list(child.value for child in node.children if child))
+                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             return node
         else:
             raise SyntaxError("Error: Expected '='")
             
     
 
-'''Vb  -> TokenType.IDENTIFIER
+'''Vb  -> TokenType.ID
 			-> '(' Vl ')'
 			-> '(' ')' => '()';
 '''
 def Vb():
     # print(tokens[0].value, "Vb")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         node = Node(tokens[0])
         ast_nodes.append(tokens.pop(0))
 
         return node
         
     elif str(tokens[0]) == '(':
-        # node = Node(tokens[0])
-        # ast_nodes.append(tokens.pop(0))
         tokens.pop(0)
         
         if str(tokens[0]) == ')':
-            # node = Node(tokens[0])
-            # ast_nodes.append(tokens.pop(0))
             tokens.pop(0)
             node = Node('()')
             ast_nodes.append('()')
@@ -841,12 +829,8 @@ def Vb():
         
         node = Vl()
         if str(tokens[0]) == ')':
-            # node = Node(tokens[0])
-            # ast_nodes.append(tokens.pop(0))
+           
             tokens.pop(0)
-            
-            # node = Node(tokens[0])if '()' not in ast_nodes:
-            # ast_nodes.append('()')
     
             return node
         else:
@@ -855,11 +839,11 @@ def Vb():
     
     
 
-'''Vl -> TokenType.IDENTIFIER list ',' => ','?
+'''Vl -> TokenType.ID list ',' => ','?
 '''
 def Vl():
     # print(tokens[0].value, "Vl")
-    if tokens[0].type == TokenType.IDENTIFIER:
+    if tokens[0].type == TokenType.ID:
         # node = Node("','?")
         # ast_nodes.append("','?")
 
@@ -872,33 +856,26 @@ def Vl():
         
             if node:
                 node.children.append(node1)
-        #     # print(str(node.value), list(child.value for child in node.children if child))
+            # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         else:
             return node1
 
         while tokens[0].value == ',':
-            # node2 = Node(tokens[0])
-            # ast_nodes.append(tokens.pop(0))
             tokens.pop(0)
-            
-            # if node:
-            #     node.children.append(node2)
-            #     # print(str(node.value), list(child.value for child in node.children if child))
-            
-            if tokens[0].type == TokenType.IDENTIFIER:
+            if tokens[0].type == TokenType.ID:
                 node3 = Node(tokens[0])
                 ast_nodes.append(tokens.pop(0))
                 
                 if node:
                     node.children.append(node3)
-                    # print(str(node.value), list(child.value for child in node.children if child))
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                  
             else:
-                raise SyntaxError("Error: Expected TokenType.IDENTIFIER after ','")
+                raise SyntaxError("Error: Expected TokenType.ID after ','")
         return node
                 
     else:
-        raise SyntaxError("Error: Expected TokenType.IDENTIFIER after ','")
+        raise SyntaxError("Error: Expected TokenType.ID after ','")
 
 
 def parser(source_code):
