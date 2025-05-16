@@ -27,6 +27,8 @@ class Token:
         if self.type in [TokenType.LPAREN, TokenType.RPAREN,
                          TokenType.SEMICOLON, TokenType.COMMA]:
             return self.value
+        elif self.type == TokenType.STR:
+            return f"<{self.type.name}:'{self.value}'>"
         return f"<{self.type.name}:{self.value}>"
 
     def __repr__(self):
