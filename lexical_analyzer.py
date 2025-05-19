@@ -13,6 +13,7 @@ class TokenType(Enum):
     COMMA = auto()  # ,
     EOF = auto()  # End of file
     KW = auto()  # KWs like 'let', 'in', etc.
+    NIL = auto()
 
 
 class Token:
@@ -29,6 +30,9 @@ class Token:
             return self.value
         elif self.type == TokenType.STR:
             return f"<{self.type.name}:'{self.value}'>"
+        elif self.value == 'nil':
+            self.type = TokenType.NIL
+            return f"<{self.value}>"
         return f"<{self.type.name}:{self.value}>"
 
     def __repr__(self):
@@ -176,6 +180,10 @@ class Lexer:
             if self.current_char == "'":
                 return Token(TokenType.STR, self.get_str(), self.line, self.column)
 
+            # Handle NIL tokens
+            if self.current_char == 'n' and self.peek() == 'i' and self.peek(2) == 'l':
+                self.advance()
+                return Token(TokenType.NIL, 'nil', self.line, self.column)
             # Handle ID tokens
             if self.current_char.isalpha():
                 return Token(TokenType.ID, self.get_id(), self.line, self.column)
@@ -223,8 +231,13 @@ class Lexer:
         if token.value in KWs:
             return Token(TokenType.KW, token.value, token.line, token.column)
         return token
+    
+    def check_NIL(self, token):
+        if token.value == 'nil':
+            return Token(TokenType.NIL, token.value, token.line, token.column)
+        return token
 
-    def peek(self):
+    def peek(self, offset=1):
         peek_pos = self.position + 1
         return self.source_code[peek_pos] if peek_pos < len(self.source_code) else None
 

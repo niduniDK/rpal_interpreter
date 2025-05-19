@@ -11,8 +11,8 @@ class AST:
     def pre_order_traverse(self, node, dots=0, visited=None):
         if visited is None:
             visited = set()
-        if id(node) in visited:
-            return
+        # if id(node) in visited:
+        #     return
         visited.add(id(node))
         if node: 
             print(dots*'.'+str(node.value))
