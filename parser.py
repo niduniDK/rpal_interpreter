@@ -4,7 +4,7 @@ from lexical_analyzer import TokenType
 
 tokens = []
 ast_nodes = []
-keywords = ['let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 'ge', 'ls', 'le', 'eq', 'ne', 'dummy']
+keywords = ['let', 'in', 'fn', 'aug', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 'ge', 'ls', 'le', 'eq', 'ne', 'dummy']
 operators_in_text = ['and', 'or', 'not', 'gr', 'ge', 'ls', 'le', 'eq', 'ne']
 
 
