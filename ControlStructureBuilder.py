@@ -1,6 +1,6 @@
 class ControlStructureBuilder:
     def __init__(self):
-        self.control_structures = {}  # δ0, δ1, ...
+        self.control_structures = {}  
         self.current_index = 0
 
     def build(self, node):
