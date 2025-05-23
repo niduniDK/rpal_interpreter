@@ -1,34 +1,51 @@
-# from standardizer import standardizer
-
-# class CSE:
-#     def __init__(self, control, stack, enviornment):
-#         self.control=control
-#         self.stack=stack
-#         self.enviornment = enviornment
-
 from Node import Node
 from ControlStructureBuilder import ControlStructureBuilder
 from CSE_machine import CSEMachine
 
-tree= Node('gamma', [
-    Node('gamma', [
-        Node('*'),
+# tree= Node('gamma', [
+#     Node('gamma', [
+#         Node('*'),
+#         Node('gamma', [
+#             Node('lambda', [
+#                 Node('x'),
+#                 Node('gamma', [
+#                     Node('gamma', [
+#                         Node('-'),
+#                         Node('x')
+#                     ]),
+#                     Node(1)
+#                 ])
+#             ]),
+#             Node(4)
+#         ])
+#     ]),
+#     Node(2)
+# ])
+
+tree = Node('gamma', [
+    Node('lambda', [
+        Node('<ID:check_pos>'),
         Node('gamma', [
-            Node('lambda', [
-                Node('x'),
-                Node('gamma', [
-                    Node('gamma', [
-                        Node('-'),
-                        Node('x')
-                    ]),
-                    Node(1)
-                ])
-            ]),
-            Node(4)
+            Node('<ID:print>'),
+            Node('gamma', [
+                Node('<ID:check_pos>'),
+                Node('<INT:3>')
+            ])
         ])
     ]),
-    Node(2)
+    Node('lambda', [
+        Node('<ID:N>'),
+        Node('->', [
+            Node('ls', [
+                Node('<ID:N>'),
+                Node('<INT:0>')
+            ]),
+            Node("<STR:'Negative'>"),
+            Node("<STR:'Positive'>")
+        ])
+    ])
 ])
+
 
 
 builder = ControlStructureBuilder()
