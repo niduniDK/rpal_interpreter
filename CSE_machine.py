@@ -24,7 +24,7 @@ class CSEMachine:
                     self._apply_gamma()
 
                 elif instr in ['+', '-', '*', '/', 'eq', 'lt', 'not']:
-                    if instr == 'not':
+                    if instr == 'not' or instr == 'neg':
                         operand = self.stack.pop()
                         result = apply_operator(instr, None, operand)
                     else:
@@ -43,8 +43,30 @@ class CSEMachine:
                     
 
                 else:  # CSE Rule 1: variable name
-                    val = lookup(instr, self._current_env())
-                    self.stack.append(val)
+                    #val = lookup(instr, self._current_env())
+                    #self.stack.append(val)
+
+                    # Check if instr is a literal tag like <INT:3> or <STR:'hello'>
+                    if instr.startswith('<') and ':' in instr and instr.endswith('>'):
+                        try:
+                            tag_type, raw_val = instr[1:-1].split(':', 1)
+                            if tag_type == 'INT':
+                                val = int(raw_val)
+                            elif tag_type == 'STR':
+                                val = eval(raw_val)  # handles quotes, e.g. "'hello'"
+                            elif tag_type == 'ID':
+                                # Treat as variable identifier – look it up
+                                val = lookup(raw_val, self._current_env())
+                                self.stack.append(val)
+                            else:
+                                raise Exception(f"Unsupported literal type: {tag_type}")
+                            self.stack.append(val)
+                        except Exception as e:
+                            raise Exception(f"Failed to parse tagged literal {instr}: {e}")
+                    else:
+                        # CSE Rule 1: Variable name
+                        val = lookup(instr, self._current_env())
+                        self.stack.append(val)
 
             elif isinstance(instr, tuple) and instr[0] == 'lambda':  # CSE Rule 2
                 _, k, x = instr
