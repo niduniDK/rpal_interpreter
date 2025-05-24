@@ -22,26 +22,89 @@ from CSE_machine import CSEMachine
 #     Node(2)
 # ])
 
+
 tree = Node('gamma', [
     Node('lambda', [
-        Node('<ID:check_pos>'),
+        Node('<ID:f>'),
         Node('gamma', [
-            Node('<ID:print>'),
+            Node('lambda', [
+                Node('<ID:fib>'),
+                Node('gamma', [
+                    Node('<ID:Print>'),
+                    Node('gamma', [
+                        Node('<ID:fib>'),
+                        Node('<INT:5>')
+                    ])
+                ])
+            ]),
             Node('gamma', [
-                Node('<ID:check_pos>'),
-                Node('<INT:3>')
+                Node('<Y*>'),
+                Node('lambda', [
+                    Node('<ID:fib>'),
+                    Node('lambda', [
+                        Node('<ID:n>'),
+                        Node('->', [
+                            Node('eq', [
+                                Node('<ID:n>'),
+                                Node('<INT:0>')
+                            ]),
+                            Node('<nil>'),
+                            Node('aug', [
+                                Node('gamma', [
+                                    Node('<ID:fib>'),
+                                    Node('-', [
+                                        Node('<ID:n>'),
+                                        Node('<INT:1>')
+                                    ])
+                                ]),
+                                Node('gamma', [
+                                    Node('<ID:f>'),
+                                    Node('<ID:n>')
+                                ])
+                            ])
+                        ])
+                    ])
+                ])
             ])
         ])
     ]),
-    Node('lambda', [
-        Node('<ID:N>'),
-        Node('->', [
-            Node('ls', [
-                Node('<ID:N>'),
-                Node('<INT:0>')
-            ]),
-            Node("<STR:'Negative'>"),
-            Node("<STR:'Positive'>")
+    Node('gamma', [
+        Node('<Y*>'),
+        Node('lambda', [
+            Node('<ID:f>'),
+            Node('lambda', [
+                Node('<ID:n>'),
+                Node('->', [
+                    Node('eq', [
+                        Node('<ID:n>'),
+                        Node('<INT:1>')
+                    ]),
+                    Node('<INT:0>'),
+                    Node('->', [
+                        Node('eq', [
+                            Node('<ID:n>'),
+                            Node('<INT:2>')
+                        ]),
+                        Node('<INT:1>'),
+                        Node('+', [
+                            Node('gamma', [
+                                Node('<ID:f>'),
+                                Node('-', [
+                                    Node('<ID:n>'),
+                                    Node('<INT:1>')
+                                ])
+                            ]),
+                            Node('gamma', [
+                                Node('<ID:f>'),
+                                Node('-', [
+                                    Node('<ID:n>'),
+                                    Node('<INT:2>')
+                                ])
+                            ])
+                        ])
+                    ])
+                ])
+            ])
         ])
     ])
 ])
