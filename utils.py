@@ -1,9 +1,12 @@
 def lookup(name, env):
+    print("Name :",name," and Env :", env)
+
     if name in env:
         return env[name]
     raise Exception(f"Variable '{name}' not found in environment.")
 
-def apply_operator(op, left, right=None):
+def apply_operator(op, left, right):
+    #print('left: ',left ,'right: ',right)
     if op == '+':
         return right + left
     elif op == '-':
@@ -12,13 +15,23 @@ def apply_operator(op, left, right=None):
         return right * left
     elif op == '/':
         return right // left  # or float(left) / right
+    elif op == 'not' or 'neg':
+        return not right
     elif op == 'eq':
         return right == left
-    elif op == 'lt':
+    elif op == 'ne':
+        return right != left
+    elif op == 'le':
+        return right <= left
+    elif op == 'ls':
         return right < left
-    elif op == 'not':
-        return not right
-    elif op == 'gamma':  # only when rator is not closure (basic function call maybe)
+    elif op == 'gr':
+        return right > left
+    elif op == 'ge':
+        return right >= left
+
+    
+    elif op == 'gamma': 
         if callable(right):
             return left(left)
         raise Exception("Cannot apply gamma to non-closure.")

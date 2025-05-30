@@ -12,7 +12,7 @@ from CSE_machine import CSEMachine
 #                     Node('gamma', [
 #                         Node('-'),
 #                         Node('x')
-#                     ]),
+#                     ]), 
 #                     Node(1)
 #                 ])
 #             ]),
@@ -23,92 +23,115 @@ from CSE_machine import CSEMachine
 # ])
 
 
+# tree = Node('gamma', [
+#     Node('lambda', [
+#         Node('<ID:f>'),
+#         Node('gamma', [
+#             Node('lambda', [
+#                 Node('<ID:fib>'),
+#                 Node('gamma', [
+#                     Node('<ID:Print>'),
+#                     Node('gamma', [
+#                         Node('<ID:fib>'),
+#                         Node('<INT:5>')
+#                     ])
+#                 ])
+#             ]),
+#             Node('gamma', [
+#                 Node('<Y*>'),
+#                 Node('lambda', [
+#                     Node('<ID:fib>'),
+#                     Node('lambda', [
+#                         Node('<ID:n>'),
+#                         Node('->', [
+#                             Node('eq', [
+#                                 Node('<ID:n>'),
+#                                 Node('<INT:0>')
+#                             ]),
+#                             Node('<nil>'),
+#                             Node('aug', [
+#                                 Node('gamma', [
+#                                     Node('<ID:fib>'),
+#                                     Node('-', [
+#                                         Node('<ID:n>'),
+#                                         Node('<INT:1>')
+#                                     ])
+#                                 ]),
+#                                 Node('gamma', [
+#                                     Node('<ID:f>'),
+#                                     Node('<ID:n>')
+#                                 ])
+#                             ])
+#                         ])
+#                     ])
+#                 ])
+#             ])
+#         ])
+#     ]),
+#     Node('gamma', [
+#         Node('<Y*>'),
+#         Node('lambda', [
+#             Node('<ID:f>'),
+#             Node('lambda', [
+#                 Node('<ID:n>'),
+#                 Node('->', [
+#                     Node('eq', [
+#                         Node('<ID:n>'),
+#                         Node('<INT:1>')
+#                     ]),
+#                     Node('<INT:0>'),
+#                     Node('->', [
+#                         Node('eq', [
+#                             Node('<ID:n>'),
+#                             Node('<INT:2>')
+#                         ]),
+#                         Node('<INT:1>'),
+#                         Node('+', [
+#                             Node('gamma', [
+#                                 Node('<ID:f>'),
+#                                 Node('-', [
+#                                     Node('<ID:n>'),
+#                                     Node('<INT:1>')
+#                                 ])
+#                             ]),
+#                             Node('gamma', [
+#                                 Node('<ID:f>'),
+#                                 Node('-', [
+#                                     Node('<ID:n>'),
+#                                     Node('<INT:2>')
+#                                 ])
+#                             ])
+#                         ])
+#                     ])
+#                 ])
+#             ])
+#         ])
+#     ])
+# ])
+
 tree = Node('gamma', [
     Node('lambda', [
-        Node('<ID:f>'),
+        Node('<ID:check_pos>'),
         Node('gamma', [
-            Node('lambda', [
-                Node('<ID:fib>'),
-                Node('gamma', [
-                    Node('<ID:Print>'),
-                    Node('gamma', [
-                        Node('<ID:fib>'),
-                        Node('<INT:5>')
-                    ])
-                ])
-            ]),
+            Node('<ID:print>'),
             Node('gamma', [
-                Node('<Y*>'),
-                Node('lambda', [
-                    Node('<ID:fib>'),
-                    Node('lambda', [
-                        Node('<ID:n>'),
-                        Node('->', [
-                            Node('eq', [
-                                Node('<ID:n>'),
-                                Node('<INT:0>')
-                            ]),
-                            Node('<nil>'),
-                            Node('aug', [
-                                Node('gamma', [
-                                    Node('<ID:fib>'),
-                                    Node('-', [
-                                        Node('<ID:n>'),
-                                        Node('<INT:1>')
-                                    ])
-                                ]),
-                                Node('gamma', [
-                                    Node('<ID:f>'),
-                                    Node('<ID:n>')
-                                ])
-                            ])
-                        ])
-                    ])
-                ])
+                Node('<ID:check_pos>'),
+                Node('<INT:5>')
             ])
         ])
     ]),
-    Node('gamma', [
-        Node('<Y*>'),
-        Node('lambda', [
-            Node('<ID:f>'),
-            Node('lambda', [
-                Node('<ID:n>'),
-                Node('->', [
-                    Node('eq', [
-                        Node('<ID:n>'),
-                        Node('<INT:1>')
-                    ]),
-                    Node('<INT:0>'),
-                    Node('->', [
-                        Node('eq', [
-                            Node('<ID:n>'),
-                            Node('<INT:2>')
-                        ]),
-                        Node('<INT:1>'),
-                        Node('+', [
-                            Node('gamma', [
-                                Node('<ID:f>'),
-                                Node('-', [
-                                    Node('<ID:n>'),
-                                    Node('<INT:1>')
-                                ])
-                            ]),
-                            Node('gamma', [
-                                Node('<ID:f>'),
-                                Node('-', [
-                                    Node('<ID:n>'),
-                                    Node('<INT:2>')
-                                ])
-                            ])
-                        ])
-                    ])
-                ])
-            ])
+    Node('lambda', [
+        Node('<ID:N>'),
+        Node('->', [
+            Node('eq', [
+                Node('<ID:N>'),
+                Node('<INT:0>')
+            ]),
+            Node("<STR:'Positive'>"),
+            Node("<STR:'Negative'>")
         ])
     ])
 ])
-
 
 
 builder = ControlStructureBuilder()
