@@ -1,2 +1,2 @@
 let check_pos N = N ls 0 -> 'Negative' | 'Positive'
-in print(check_pos(3))
+in print(check_pos 3)
