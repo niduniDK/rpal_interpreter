@@ -1,6 +1,7 @@
 from Node import Node
 from ControlStructureBuilder import ControlStructureBuilder
 from CSE_machine import CSEMachine
+from standardizer import return_tree
 
 # tree= Node('gamma', [
 #     Node('gamma', [
@@ -109,29 +110,66 @@ from CSE_machine import CSEMachine
 #     ])
 # ])
 
+# tree = Node('gamma', [
+#     Node('lambda', [
+#         Node('<ID:check_pos>'),
+#         Node('gamma', [
+#             Node('<ID:print>'),
+#             Node('gamma', [
+#                 Node('<ID:check_pos>'),
+#                 Node('<INT:3>')
+#             ])
+#         ])
+#     ]),
+#     Node('lambda', [
+#         Node('<ID:N>'),
+#         Node('->', [
+#             Node('ls', [
+#                 Node('<ID:N>'),
+#                 Node('<INT:0>')
+#             ]),
+#             Node("<STR:'Negative'>"),
+#             Node("<STR:'Positive'>")
+#         ])
+#     ])
+# ])
+
 tree = Node('gamma', [
     Node('lambda', [
-        Node('<ID:check_pos>'),
+        Node(',', [
+            Node('<ID:f>'),
+            Node('<ID:g>')
+        ]),
         Node('gamma', [
-            Node('<ID:print>'),
-            Node('gamma', [
-                Node('<ID:check_pos>'),
-                Node('<INT:3>')
+            Node('<ID:g>'),
+            Node('+', [
+                Node('<INT:2>'),
+                Node('gamma', [
+                    Node('<ID:f>'),
+                    Node('<INT:3>')
+                ])
             ])
         ])
     ]),
-    Node('lambda', [
-        Node('<ID:N>'),
-        Node('->', [
-            Node('ls', [
-                Node('<ID:N>'),
-                Node('<INT:0>')
-            ]),
-            Node("<STR:'Negative'>"),
-            Node("<STR:'Positive'>")
+    Node('tau', [
+        Node('lambda', [
+            Node('<ID:n>'),
+            Node('+', [
+                Node('<ID:n>'),
+                Node('<INT:1>')
+            ])
+        ]),
+        Node('lambda', [
+            Node('<ID:n>'),
+            Node('+', [
+                Node('<ID:n>'),
+                Node('<INT:2>')
+            ])
         ])
     ])
 ])
+
+
 builder = ControlStructureBuilder()
 control_structures = builder.build(tree)
 

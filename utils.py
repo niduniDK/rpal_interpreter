@@ -1,12 +1,16 @@
-def lookup(name, env):
+def lookup(name, env, env_list):
     print("Name :",name," and Env :", env)
 
     if name in env:
         return env[name]
+    # Then check all environments in the list (from latest to earliest)
+    for e in reversed(env_list):
+        if name in e:
+            return e[name]
     raise Exception(f"Variable '{name}' not found in environment.")
 
 def apply_operator(op, left, right):
-    print('op :', op)
+    print('operator is :', op)
     print('left: ', left, 'right: ', right)
     if op == '+':
         return right + left

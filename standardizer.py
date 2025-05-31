@@ -31,7 +31,7 @@ def standardizer(node):
         node.children = []
         node.value = '='
         if temp_children[1] and temp_children[0]:
-            left_child = temp_children[1].chilren[0]
+            left_child = temp_children[1].children[0]
             temp = Node('lambda', [temp_children[0].children[0], temp_children[1].children[1]])
             right_child = Node('gamma', [temp, temp_children[0].children[1]])
             new_children.append(left_child)
@@ -134,9 +134,27 @@ def get_standardized_tree(node):
             node.children[i] = get_standardized_tree(child)
     return standardizer(node)
 
+def return_tree(source_code,ast, tree):
+    root = parser(source_code)
+    ast = AST(root)
+    std_root = get_standardized_tree(root)
+    ast.pre_order_traverse(std_root)
+
+    tree_new = ast.get_dot_lines(std_root)
+    tree = ast.parse_dot_tree(tree_new)
+
+    new_generated_tree = "tree = " + ast.to_code(tree)
+    return new_generated_tree
+
 def standardize_ast(source_code):
     root = parser(source_code)
     ast = AST(root)
     std_root = get_standardized_tree(root)
     ast.pre_order_traverse(std_root)
-    return std_root
+
+    print("===========================================================")
+    tree_new = ast.get_dot_lines(std_root)
+    tree = ast.parse_dot_tree(tree_new)
+    print("tree = " + ast.to_code(tree))
+
+    return std_root, ast, tree  # return ast and tree so return_tree can use them

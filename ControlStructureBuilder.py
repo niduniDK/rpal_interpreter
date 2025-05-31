@@ -23,15 +23,19 @@ class ControlStructureBuilder:
         if f"δ{index}" not in self.control_structures:
             self.control_structures[f"δ{index}"] = []
         control_list = self.control_structures[f"δ{index}"]
+       
 
         # Preorder: visit node first
         if node.label == 'lambda':
             new_index = self._get_new_index()
-            var = node.children[0].label
+            param_node = node.children[0]
+            if param_node.label == ',':
+                var = [child.label for child in param_node.children]  
+            else:
+                var = param_node.label  
             control_list.append(('lambda', new_index, var))
-
-            # Recursively build lambda body in δk
             self._build_control_structure(node.children[1], new_index)
+
 
         elif node.label == 'gamma':
             control_list.append('gamma')
@@ -86,12 +90,13 @@ class ControlStructureBuilder:
 
                 
         elif node.label == 'tau':
-            control_list.append(('tau', len(node.children)))
+            control_list.append(('𝜏', len(node.children)))
             for child in node.children:
                 self._build_control_structure(child, index)
 
-        elif node.label in ['+', '-', '*', '/', 'eq', 'lt', 'not', 'ls']:
-            control_list.append(node.label)
+        elif node.label in ['+', '-', '*', '/', 'eq', 'le','not','ls','neg','gr','ge','ne']:
+            #control_list.append(node.label)
+            control_list.extend(self._preorder_flatten(node))
 
         else:
             # Literal or identifier
