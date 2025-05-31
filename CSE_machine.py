@@ -41,7 +41,7 @@ class CSEMachine:
                             if self.control:
                                 self.control.pop() 
                         result = apply_operator(instr, left, right)
-                        print("Result is ----------------------",result)
+                        print("Result is :",result)
                     self.stack.append(result)
 
                 elif instr.startswith('e') and instr[1:].isdigit():  #  CSE Rule 5
@@ -68,7 +68,7 @@ class CSEMachine:
                                 if new_val == "<ID:print>" :
                                     self._apply_print()
                                 else:
-                                    val = lookup(new_val, self._current_env())
+                                    val = lookup(new_val, self._current_env(),self.environment)
                                 #self.stack.append(val)
                             else:
                                 raise Exception(f"Unsupported literal type: {tag_type}")
@@ -85,7 +85,7 @@ class CSEMachine:
                 closure = Closure(k, x, self._current_env())
                 self.stack.append(closure)
 
-            elif isinstance(instr, tuple) and instr[0] == 'tau':  # Tuple constructor (if you use it)
+            elif isinstance(instr, tuple) and instr[0] == '𝜏':  # Tuple constructor (if you use it)
                 n = instr[1]
                 tuple_values = [self.stack.pop() for _ in range(n)]
                 self.stack.append(tuple(reversed(tuple_values)))
@@ -111,12 +111,34 @@ class CSEMachine:
         rator = self.stack.pop()
         print('rand : ',rand , 'and rator :',rator)
 
-        if isinstance(rand, Closure):  # Rule 4
+        if isinstance(rand, Closure):  # Rule 4 ,Rule 10 and Rule 11
             closure = rand
             new_env = closure.env.copy()
-            
-            new_env = closure.env.copy()
-            new_env[closure.var] = rator  
+
+            if isinstance(rator, tuple) and isinstance(rand, int): #Rule 10
+                if 1 <= rand <= len(rator):  
+                    self.stack.append(rator[rand - 1])
+                    return
+                else:
+                    raise Exception(f"Index {rand} out of bounds for tuple of length {len(rator)}")
+
+            if isinstance(closure.var, list): #Rule 11
+                print('Now this is the correct path to go')
+                reversed_vars = list(reversed(closure.var))
+                
+                print('rator is:', rator)
+
+                if not isinstance(rator, tuple) or len(rator) != len(reversed_vars):
+                    raise Exception("Mismatch between number of arguments and parameters")
+
+                for i in range(len(reversed_vars)):
+                    param = reversed_vars[i]
+                    arg = rator[i]
+                    new_env[param] = arg
+
+            else: # Rule 4
+                new_env[closure.var] = rator  
+
             self.environment.append(new_env)
             
             new_env_label = f"e{len(self.environment) - 1}"
@@ -131,7 +153,7 @@ class CSEMachine:
             self.stack.append(new_env_label)
 
         else:
-            # Rule 3 (apply operator or built-in function)
+            # Rule 3 
             result = apply_operator("gamma", rator, rand)
             self.stack.append(result)
 
