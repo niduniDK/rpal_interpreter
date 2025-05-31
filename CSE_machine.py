@@ -41,6 +41,7 @@ class CSEMachine:
                             if self.control:
                                 self.control.pop() 
                         result = apply_operator(instr, left, right)
+                        print("Result is ----------------------",result)
                     self.stack.append(result)
 
                 elif instr.startswith('e') and instr[1:].isdigit():  #  CSE Rule 5
@@ -89,11 +90,11 @@ class CSEMachine:
                 tuple_values = [self.stack.pop() for _ in range(n)]
                 self.stack.append(tuple(reversed(tuple_values)))
 
-            elif isinstance(instr, str) and instr in ['+', '-', '*', '/', 'eq', 'le', 'not','ls','neg','gr','ge','ne']:  # Operators
-                right = self.stack.pop()
-                left = self.stack.pop() if instr != 'not' else None
-                result = apply_operator(instr, left, right)
-                self.stack.append(result)
+            #elif isinstance(instr, str) and instr in ['+', '-', '*', '/', 'eq', 'le', 'not','ls','neg','gr','ge','ne']:  # Operators
+                #right = self.stack.pop()
+                #left = self.stack.pop() if instr != 'not' else None
+                #result = apply_operator(instr, left, right)
+                #self.stack.append(result)
 
             else:
                 # Assume literals (int, etc.)
@@ -134,20 +135,24 @@ class CSEMachine:
             result = apply_operator("gamma", rator, rand)
             self.stack.append(result)
 
+
     def _apply_beta(self):
         condition = self.stack.pop()
+        print("The condition is :",condition)
 
         if len(self.control) < 2:
             raise Exception("Control underflow: Not enough elements to apply β")
 
         false_branch = self.control.pop()
         true_branch = self.control.pop()
+        print('False_branch :',false_branch, "and True_branch :",true_branch)
 
-        if condition == 'true':
+        if condition == True:
             chosen_branch = true_branch
-        else:
+        elif condition == False:
             chosen_branch = false_branch
 
+        print('chosen_branch : ',chosen_branch)
         if chosen_branch not in self.control_structures:
             raise Exception(f"Missing control structure: {chosen_branch}")
 

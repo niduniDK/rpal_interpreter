@@ -6,7 +6,8 @@ def lookup(name, env):
     raise Exception(f"Variable '{name}' not found in environment.")
 
 def apply_operator(op, left, right):
-    #print('left: ',left ,'right: ',right)
+    print('op :', op)
+    print('left: ', left, 'right: ', right)
     if op == '+':
         return right + left
     elif op == '-':
@@ -15,7 +16,7 @@ def apply_operator(op, left, right):
         return right * left
     elif op == '/':
         return right // left  # or float(left) / right
-    elif op == 'not' or 'neg':
+    elif op in ['not', 'neg']:
         return not right
     elif op == 'eq':
         return right == left
@@ -29,9 +30,7 @@ def apply_operator(op, left, right):
         return right > left
     elif op == 'ge':
         return right >= left
-
-    
-    elif op == 'gamma': 
+    elif op == 'gamma':
         if callable(right):
             return left(left)
         raise Exception("Cannot apply gamma to non-closure.")

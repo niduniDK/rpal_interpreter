@@ -116,24 +116,22 @@ tree = Node('gamma', [
             Node('<ID:print>'),
             Node('gamma', [
                 Node('<ID:check_pos>'),
-                Node('<INT:5>')
+                Node('<INT:3>')
             ])
         ])
     ]),
     Node('lambda', [
         Node('<ID:N>'),
         Node('->', [
-            Node('eq', [
+            Node('ls', [
                 Node('<ID:N>'),
                 Node('<INT:0>')
             ]),
-            Node("<STR:'Positive'>"),
-            Node("<STR:'Negative'>")
+            Node("<STR:'Negative'>"),
+            Node("<STR:'Positive'>")
         ])
     ])
 ])
-
-
 builder = ControlStructureBuilder()
 control_structures = builder.build(tree)
 
