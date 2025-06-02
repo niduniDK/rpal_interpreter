@@ -66,14 +66,7 @@ def E():
                 # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
 
         if len(tokens) > 0 and tokens[0].value == '.':
-            token_value = tokens[0].value
             tokens.pop(0)
-            node3 = Node(token_value)  # Use the saved value
-            ast_nodes.append(token_value)
-            
-            if node:
-                node.children.append(node3)
-                # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
             
             node4 = E()
             
