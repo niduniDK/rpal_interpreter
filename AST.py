@@ -18,8 +18,7 @@ class AST:
             print(dots*'.'+str(node.value))
             for child in node.children:
                 self.pre_order_traverse(node=child, visited=visited, dots=dots+1)
-        else: 
-            print(" ")
+        
 
     #Added by Raleesa    
     def parse_dot_tree(self, dot_lines):

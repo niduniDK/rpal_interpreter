@@ -279,7 +279,7 @@ class CSEMachine:
             self.stack.append((rand,))
         elif isinstance(rator, tuple):
             rand = self.stack.pop()
-            new_tuple = rator + (rand,)
+            new_tuple = (rand,) + rator
             self.stack.append(new_tuple)
         
     def _apply_conc(self):

@@ -107,6 +107,9 @@ class ControlStructureBuilder:
             #control_list.append(node.value)
             control_list.extend(self._preorder_flatten(node))
 
+        elif node.value == 'aug':
+            control_list.extend(self._preorder_flatten(node))
+
         else:
             # Literal or identifier
             control_list.append(node.value)

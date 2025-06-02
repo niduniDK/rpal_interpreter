@@ -104,7 +104,8 @@ def standardizer(node):
                 curr.children.append(temp_children[-1])
         
         new_children.append(temp_children[0])
-        new_children.append(repeating_struct)
+        if len(temp_children) > 2: new_children.append(repeating_struct)
+        else: new_children.append(temp_children[1])
 
         node.children = new_children
 
