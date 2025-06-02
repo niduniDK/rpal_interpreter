@@ -1,18 +1,19 @@
 import sys
 import parser
 import standardizer
+import CSE
 
 def main():
     args = sys.argv
     print_ast = False
-    standardize_ast = False
+    print_st = False
 
     if len(args) == 3:
         if args[1] == "-ast":
             print_ast = True
             filename = args[2]
         elif args[1] == "-st":
-            standardize_ast = True
+            print_st = True
             filename = args[2]
         else:
             print(f"Unknown option: {args[1]}")
@@ -29,10 +30,9 @@ def main():
             # Parse content
             if print_ast:
                 parser.print_ast(content)
-            elif standardize_ast:
-                standardizer.standardize_ast(content)
-            else:
-                print("Running RPAL program...")
+            elif print_st:
+                standardizer.print_st(content)
+            CSE.evaluate(content)
     except FileNotFoundError:
         print(f"Cannot open file: {filename}")
         sys.exit(1)
