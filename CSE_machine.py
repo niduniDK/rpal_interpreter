@@ -228,7 +228,7 @@ class CSEMachine:
 
         elif isinstance(rand, tuple) and isinstance(rator, int):
             if 1 <= rator <= len(rand):  # Rule 9
-                self.stack.append(rand[rator - 1])
+                self.stack.append(rand[len(rand) - rator])
 
         else:
             # Rule 3
