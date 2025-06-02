@@ -592,6 +592,7 @@ def R():
             node.children.append(node2)
             # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
         if len(tokens) > 0 and tokens[0].value not in keywords and (tokens[0].type == TokenType.ID or tokens[0].type == TokenType.INT or tokens[0].type == TokenType.STR or tokens[0].value == 'true' or tokens[0].value == 'false' or tokens[0].value == 'nil' or tokens[0].value == 'dummy' or str(tokens[0]) == '('):
+            node1 = node
             continue
         else: return node
     return node1

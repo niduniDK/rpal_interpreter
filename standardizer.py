@@ -48,9 +48,9 @@ def standardizer(node):
         repeating_struct = Node('lambda')
         curr = repeating_struct
 
-        for i in range(len(temp_children) - 2, 0, -1):
+        for i in range(1, len(temp_children) - 1):
             curr.children.append(temp_children[i])
-            if i != 1:
+            if i != len(temp_children) - 2:
                 curr.children.append(Node('lambda'))
             else:
                 curr.children.append(temp_children[-1])
