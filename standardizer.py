@@ -134,27 +134,34 @@ def get_standardized_tree(node):
             node.children[i] = get_standardized_tree(child)
     return standardizer(node)
 
-def return_tree(source_code,ast, tree):
-    root = parser(source_code)
-    ast = AST(root)
-    std_root = get_standardized_tree(root)
-    ast.pre_order_traverse(std_root)
+# def return_tree(source_code):
+#     root = parser(source_code)
+#     ast = AST(root)
+#     std_root = get_standardized_tree(root)
+#     ast.pre_order_traverse(std_root)
 
-    tree_new = ast.get_dot_lines(std_root)
-    tree = ast.parse_dot_tree(tree_new)
+#     tree_new = ast.get_dot_lines(std_root)
+#     tree = ast.parse_dot_tree(tree_new)
 
-    new_generated_tree = "tree = " + ast.to_code(tree)
-    return new_generated_tree
+#     new_generated_tree = "tree = " + ast.to_code(tree)
+#     return tree
 
 def standardize_ast(source_code):
     root = parser(source_code)
     ast = AST(root)
     std_root = get_standardized_tree(root)
-    ast.pre_order_traverse(std_root)
-
-    print("===========================================================")
+    
+    # print("===========================================================")
     tree_new = ast.get_dot_lines(std_root)
     tree = ast.parse_dot_tree(tree_new)
-    print("tree = " + ast.to_code(tree))
+    # print("tree = " + ast.to_code(tree))
 
-    return std_root, ast, tree  # return ast and tree so return_tree can use them
+    # return std_root
+
+    return tree  # return ast and tree so return_tree can use them
+
+def print_st(source_code):
+    root = parser(source_code)
+    ast = AST(root)
+    std_root = get_standardized_tree(root)
+    ast.pre_order_traverse(std_root)

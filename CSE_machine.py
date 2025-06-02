@@ -13,8 +13,8 @@ class CSEMachine:
 
     def run(self):
         while self.control:
-            print(f"\nControl: {self.control}")
-            print(f"Stack: {self.stack}")
+            # print(f"\nControl: {self.control}")
+            # print(f"Stack: {self.stack}")
             # print(f"Enviornment: {self.environment}")
             instr = self.control.pop()
             # print(f"now we are popping : {instr}\n")

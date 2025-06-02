@@ -557,14 +557,14 @@ def Ap():
                 
                 if node:
                     node.children.append(node2)
-                    print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                 ast_nodes.append(tokens.pop(0).value)
                 
                 node3 = R()
                 
                 if node:
                     node.children.append(node3)
-                    print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
+                    # print(str(node.value), list(child.value for child in node.children if child), tokens[0].value)
                 
             else:
                 raise SyntaxError("Error: Expected TokenType.ID after '@'")

@@ -1,4 +1,4 @@
 class Node:
-    def __init__(self, label, children=None):
-        self.label = label
+    def __init__(self, value, children=None):
+        self.value = value
         self.children = children or []
