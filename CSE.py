@@ -1,7 +1,7 @@
 from Node import Node
 from ControlStructureBuilder import ControlStructureBuilder
 from CSE_machine import CSEMachine
-from standardizer import return_tree
+from standardizer import standardize_ast
 
 # tree= Node('gamma', [
 #     Node('gamma', [
@@ -169,16 +169,18 @@ tree = Node('gamma', [
     ])
 ])
 
+def evaluate(source_code):
+    tree = standardize_ast(source_code)
+    builder = ControlStructureBuilder()
+    control_structures = builder.build(tree)
 
-builder = ControlStructureBuilder()
-control_structures = builder.build(tree)
+    # print('\nControl Structures for the CSE Machine :\n')
+    # for name, cs in control_structures.items():
+    #     print(name, "=>", cs)
 
-print('\nControl Structures for the CSE Machine :\n')
-for name, cs in control_structures.items():
-    print(name, "=>", cs)
-
-machine = CSEMachine(control_structures)
-print('\n===================================================================')
-result = machine.run()
-print('=====================================================================')
-print("Final Result:", result)
+    machine = CSEMachine(control_structures)
+    # print('\n===================================================================')
+    result = machine.run()
+    # print('=====================================================================')
+    # print("Final Result:", result)
+    return result
