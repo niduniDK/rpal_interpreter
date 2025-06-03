@@ -6,26 +6,77 @@ INTERPRETER = myrpal.py
 SCRIPT_DIR = ./testing_scripts
 SCRIPTS = $(wildcard $(SCRIPT_DIR)/*.txt)
 
-# Run all files normally
+# Detect if running on Windows (CMD/PowerShell)
+ifeq ($(OS),Windows_NT)
+  IS_WINDOWS := 1
+else
+  IS_WINDOWS := 0
+  SHELL := /bin/bash
+endif
+
+# Run a specific file
+run:
+	$(PYTHON) $(INTERPRETER) $(file)
+
+# Print AST for a specific file
+ast:
+	$(PYTHON) $(INTERPRETER) -ast $(file)
+
+# Print standardized AST for a specific file
+st:
+	$(PYTHON) $(INTERPRETER) -st $(file)
+
+# Run all test scripts normally
 run-all:
-	@for file in $(SCRIPTS); do \
-		echo "Running $$file..."; \
-		$(PYTHON) $(INTERPRETER) $$file; \
+ifeq ($(IS_WINDOWS),1)
+	@for %%f in ($(SCRIPTS)) do ( \
+		echo Running %%f... && \
+		$(PYTHON) $(INTERPRETER) %%f && \
+		echo. \
+	)
+else
+	@for f in $(SCRIPTS); do \
+		echo "Running $$f..."; \
+		$(PYTHON) $(INTERPRETER) $$f; \
 		echo ""; \
 	done
+endif
 
-# Run all files to generate ASTs
+# Run all test scripts to generate ASTs
 run-all-ast:
-	@for file in $(SCRIPTS); do \
-		echo "Running AST for $$file..."; \
-		$(PYTHON) $(INTERPRETER) -ast $$file; \
+ifeq ($(IS_WINDOWS),1)
+	@for %%f in ($(SCRIPTS)) do ( \
+		echo Running AST for %%f... && \
+		$(PYTHON) $(INTERPRETER) -ast %%f && \
+		echo. \
+	)
+else
+	@for f in $(SCRIPTS); do \
+		echo "Running AST for $$f..."; \
+		$(PYTHON) $(INTERPRETER) -ast $$f; \
 		echo ""; \
 	done
+endif
 
-# Run all files to generate symbol tables
+# Run all test scripts to generate Symbol Tables
 run-all-st:
-	@for file in $(SCRIPTS); do \
-		echo "Running ST for $$file..."; \
-		$(PYTHON) $(INTERPRETER) -st $$file; \
+ifeq ($(IS_WINDOWS),1)
+	@for %%f in ($(SCRIPTS)) do ( \
+		echo Running ST for %%f... && \
+		$(PYTHON) $(INTERPRETER) -st %%f && \
+		echo. \
+	)
+else
+	@for f in $(SCRIPTS); do \
+		echo "Running ST for $$f..."; \
+		$(PYTHON) $(INTERPRETER) -st $$f; \
 		echo ""; \
 	done
+endif
+
+# Clean up
+clean:
+	rm -rf __pycache__ *.pyc
+
+# Declare phony targets to avoid conflicts with filenames
+.PHONY: run ast sast run-all run-all-ast run-all-st clean
