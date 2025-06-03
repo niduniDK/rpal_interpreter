@@ -29,6 +29,9 @@ class CSEMachine:
                 elif instr == '<nil>':
                     self.stack.append('nil')
                 
+                elif instr == '<dummy>':
+                    self.stack.append('dummy')
+
                 elif instr == 'aug':
                     self._apply_aug()
 
@@ -161,6 +164,9 @@ class CSEMachine:
         rand = self.stack.pop()
         rator = self.stack.pop()
         # print('rand : ',rand , 'and rator :',rator)
+        if isinstance(rand, str) and not rator:
+            self.stack.append('dummy')
+            return
 
         if isinstance(rand, Closure):  # Rule 4 ,Rule 10 and Rule 11
             closure = rand
@@ -229,7 +235,6 @@ class CSEMachine:
         elif isinstance(rand, tuple) and isinstance(rator, int):
             if 1 <= rator <= len(rand):  # Rule 9
                 self.stack.append(rand[len(rand) - rator])
-
         else:
             # Rule 3
             result = apply_operator("gamma", rator, rand)
