@@ -737,7 +737,10 @@ def Dr():
 def Db():
     # print(tokens[0].value, "Db")
     if tokens[0].type == TokenType.ID:
-        node = Node('function_form')
+        if tokens[1].value == '=':
+            node = Node('=')
+        else: node = Node('function_form')
+        
         ast_nodes.append('function_form')
         
         node1 = Vb()

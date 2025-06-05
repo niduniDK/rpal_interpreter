@@ -1,0 +1,4 @@
+let
+    X = dummy
+in
+    Print(Isdummy(X))

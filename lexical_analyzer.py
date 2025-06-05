@@ -14,6 +14,7 @@ class TokenType(Enum):
     EOF = auto()  # End of file
     KW = auto()  # KWs like 'let', 'in', etc.
     NIL = auto()
+    DUMMY = auto()  # Special token for 'dummy'
 
 
 class Token:
@@ -32,6 +33,9 @@ class Token:
             return f"<{self.type.name}:'{self.value}'>"
         elif self.value == 'nil':
             self.type = TokenType.NIL
+            return f"<{self.value}>"
+        elif self.value == 'dummy':
+            self.type = TokenType.DUMMY
             return f"<{self.value}>"
         return f"<{self.type.name}:{self.value}>"
 
@@ -159,11 +163,21 @@ class Lexer:
     def get_KW(self):
         KWs = {
             'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr', 
-            'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
+            'ge', 'ls', 'le', 'eq', 'ne'
         }
         result = self.get_id()
         if result in KWs:
             return result
+    
+    def get_dummy(self):
+        if self.current_char == 'd' and self.peek() == 'u' and self.peek(2) == 'm' and self.peek(3) == 'm' and self.peek(4) == 'y':
+            self.advance()
+            self.advance()
+            self.advance()
+            self.advance()
+            self.advance()
+            return Token(TokenType.DUMMY, 'dummy', self.line, self.column)
+        return None
 
     def get_next_token(self):
         while self.current_char:
@@ -184,6 +198,12 @@ class Lexer:
             if self.current_char == 'n' and self.peek() == 'i' and self.peek(2) == 'l':
                 self.advance()
                 return Token(TokenType.NIL, 'nil', self.line, self.column)
+            
+            # Handle dummy tokens
+            if self.current_char == 'd' and self.peek() == 'u' and self.peek(2) == 'm' and self.peek(3) == 'm' and self.peek(4) == 'y':
+                self.advance()
+                return self.get_dummy()
+            
             # Handle ID tokens
             if self.current_char.isalpha():
                 return Token(TokenType.ID, self.get_id(), self.line, self.column)
@@ -226,7 +246,7 @@ class Lexer:
     def check_KWs(self, token):
         KWs = {
             'let', 'in', 'fn', 'where', 'rec', 'within', 'and', 'or', 'not', 'gr',
-            'ge', 'ls', 'le', 'eq', 'ne', 'dummy'
+            'ge', 'ls', 'le', 'eq', 'ne'
         }
         if token.value in KWs:
             return Token(TokenType.KW, token.value, token.line, token.column)
@@ -235,6 +255,11 @@ class Lexer:
     def check_NIL(self, token):
         if token.value == 'nil':
             return Token(TokenType.NIL, token.value, token.line, token.column)
+        return token
+    
+    def check_dummy(self, token):
+        if token.value == 'dummy':
+            return Token(TokenType.DUMMY, token.value, token.line, token.column)
         return token
 
     def peek(self, offset=1):
@@ -249,17 +274,25 @@ class Lexer:
             if token.type == TokenType.EOF:
                 break
             tokens.append(token)
+        # print("Tokens:", tokens)
         return tokens
 
-source_code = """
-let Sum(A) = Psum (A,Order A )
-where rec Psum (T,N) = N eq 0 -> 0
- | Psum(T,N-1)+T N
-in Print ( Sum (1,2,3,4,5) )
-"""
 
-lexer = Lexer(source_code)
-tokens = lexer.tokenize()
+# source_code = """
+# let x = 53 + 39 // This is a comment
+# in Print('Hello World')
+# """
+
+# source_code = """
+# let Sum(A) = Psum (A,Order A )
+# where rec Psum (T,N) = N eq 0 -> 0
+#  | Psum(T,N-1)+T N
+# in Print ( Sum (1,2,3,4,5) )
+# """
+
+
+# lexer = Lexer(source_code)
+# tokens = lexer.tokenize()
 
 # for token in tokens:
 #     print(token)
