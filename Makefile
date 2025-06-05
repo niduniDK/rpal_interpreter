@@ -1,5 +1,10 @@
 # Python interpreter
-PYTHON = python
+ifeq ($(OS),Windows_NT)
+	PYTHON = python
+else
+	PYTHON = python3
+endif
+
 INTERPRETER = myrpal.py
 
 # Directory of test scripts
@@ -53,7 +58,7 @@ ifeq ($(IS_WINDOWS),1)
 else
 	@for f in $(SCRIPTS); do \
 		echo "Running AST for $$f..."; \
-		$(PYTHON) $(INTERPRETER) -ast $$f; \
+		$(PYTHON) $(INTERPRETER) -ast "$$f"; \
 		echo ""; \
 	done
 endif
