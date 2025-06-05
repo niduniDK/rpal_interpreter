@@ -69,18 +69,6 @@ class ControlStructureBuilder:
             b_preorder = self._preorder_flatten(B)
             control_list.extend(b_preorder)
 
-            # Step 4: Build control structures for E1 and E2 in their respective δs
-            #self._build_control_structure(E1, then_index)
-            #self._build_control_structure(E2, else_index)
-
-            # Add full preorder of E1 to δ{then_index}
-            #self.control_structures[f"δ{then_index}"] = []
-            #self.control_structures[f"δ{then_index}"].extend(self._preorder_flatten(E1))
-
-            # Add full preorder of E2 to δ{else_index}
-            #self.control_structures[f"δ{else_index}"] = []
-            #self.control_structures[f"δ{else_index}"].extend(self._preorder_flatten(E2))
-
             # For E1
             if E1.value != '->' and E1.value != 'lambda' and E1.value != 'gamma' and E1.value != 'tau':
                 self.control_structures[f"δ{then_index}"] = []
