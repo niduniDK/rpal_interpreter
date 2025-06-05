@@ -19,8 +19,7 @@ class AST:
             for child in node.children:
                 self.pre_order_traverse(node=child, visited=visited, dots=dots+1)
         
-
-    #Added by Raleesa    
+   
     def parse_dot_tree(self, dot_lines):
         stack = []
         root = None
