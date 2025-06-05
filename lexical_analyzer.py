@@ -251,11 +251,6 @@ class Lexer:
             tokens.append(token)
         return tokens
 
-# source_code = """
-# let x = 53 + 39 // This is a comment
-# in Print('Hello World')
-# """
-
 source_code = """
 let Sum(A) = Psum (A,Order A )
 where rec Psum (T,N) = N eq 0 -> 0
