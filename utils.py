@@ -21,7 +21,7 @@ def apply_operator(op, left, right):
     elif op == '**':
         return right ** left
     elif op == '/':
-        return right // left  # or float(left) / right
+        return right // left  
     elif op in ['not']:
         return not left
     elif op == 'neg':
