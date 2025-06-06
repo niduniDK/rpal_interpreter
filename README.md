@@ -27,7 +27,7 @@ Run with Python 3.7+:
 python main.py -ast teststing_scripts/sample.txt
 ```
 
-##🛠 Built With
+## 🛠 Built With
 - Python 3
 
 - Recursive descent parsing
