@@ -63,7 +63,7 @@ else
 	done
 endif
 
-# Run all test scripts to generate Symbol Tables
+# Run all test scripts to generate STs
 run-all-st:
 ifeq ($(IS_WINDOWS),1)
 	@for %%f in ($(SCRIPTS)) do ( \
