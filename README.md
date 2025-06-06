@@ -1,4 +1,4 @@
-# 🌀 RPAL Interpreter
+# RPAL Interpreter
 
 An interpreter for the RPAL (Right-reference Programming Algorithmic Language) language — a simple functional language designed for educational purposes.
 
