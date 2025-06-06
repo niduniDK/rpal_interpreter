@@ -1,5 +1,5 @@
-from Closure import Closure, ClosuerEta
-from utils import lookup, apply_operator
+from CSE.Closure import Closure, ClosuerEta
+from CSE.utils import lookup, apply_operator
 
 class CSEMachine:
     def __init__(self, control_structures):

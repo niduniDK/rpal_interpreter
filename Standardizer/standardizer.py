@@ -1,5 +1,5 @@
-from parser import parser
-from AST import Node, AST
+from AST.parser import parser
+from AST.AST import Node, AST
 
 def standardizer(node):
     if node.value == 'let':

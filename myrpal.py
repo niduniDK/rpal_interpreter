@@ -1,7 +1,7 @@
 import sys
-import parser
-import standardizer
-import CSE
+import AST.parser as parser
+import Standardizer.standardizer as standardizer
+import CSE.CSE as CSE
 
 def main():
     args = sys.argv

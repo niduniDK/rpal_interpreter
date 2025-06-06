@@ -11,19 +11,6 @@ This project implements a full pipeline for RPAL source code:
 - Standardization of AST
 - Evaluation using an environment model interpreter
 
-## 📂 Project Structure
-```
-rpal-interpreter/
-│
-├── testsing_scripts/ # Test RPAL programs
-├── lexer.py # Lexical analyzer
-├── parser.py # Syntax parser
-├── AST.py # AST generator from CST
-├── standardizer.py # Standardizer for AST
-├── myrpal.py # Entry point
-└── README.md
-```
-
 
 ## 📥 Installation
 

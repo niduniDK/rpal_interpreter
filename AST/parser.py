@@ -1,6 +1,6 @@
-from AST import AST, Node
-from lexical_analyzer import Lexer
-from lexical_analyzer import TokenType
+from AST.AST import AST, Node
+from Lexer.lexical_analyzer import Lexer
+from Lexer.lexical_analyzer import TokenType
 
 tokens = []
 ast_nodes = []
