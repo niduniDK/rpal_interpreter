@@ -16,12 +16,20 @@ This project implements a full pipeline for RPAL source code:
 rpal-interpreter/
 │
 ├── testsing_scripts/ # Test RPAL programs
-├── lexer.py # Lexical analyzer
-├── parser.py # Syntax parser
-├── AST.py # AST generator from CST
-├── standardizer.py # Standardizer for AST
-├── myrpal.py # Entry point
-└── README.md
+├── .gitignore
+├── AST.py
+├── CSE.py
+├── CSE_machine.py
+├── Closure.py
+├── ControlStructureBuilder.py
+├── Makefile
+├── Node.py
+├── README.md
+├── lexical_analyser.py
+├── myrpal.py
+├── parser.py
+├── standardizer.oy
+├── utils.py
 ```
 
 
@@ -40,7 +48,7 @@ Run with Python 3.7+:
 python main.py -ast teststing_scripts/sample.txt
 ```
 
-##🛠 Built With
+## 🛠 Built With
 - Python 3
 
 - Recursive descent parsing
